@@ -1,0 +1,57 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "tz.co.dfm.dfmradio"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 3
+        versionName "1.0.3"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    implementation "com.android.support:exifinterface:$androidSupportVersion"
+    implementation "com.android.support:support-v4:$androidSupportVersion"
+    implementation "com.android.support:support-v13:$androidSupportVersion"
+    implementation "com.android.support:palette-v7:$androidSupportVersion"
+    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
+    implementation "com.android.support:cardview-v7:$androidSupportVersion"
+    implementation "com.android.support:design:$androidSupportVersion"
+    implementation "com.android.support.constraint:constraint-layout:1.1.2"
+    implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.google.android.gms:play-services-plus:15.0.1'
+    testImplementation "junit:junit:4.12"
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoSupportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-idling-resource:$espressoSupportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$espressoSupportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$espressoSupportVersion"
+
+    /**** Butter Knife Library ****/
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    /***** Picasso Photo Library *****/
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    /***** Schematic Content provider Library *****/
+    annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.6.3'
+    implementation 'net.simonvt.schematic:schematic:0.6.3'
+    /***** Volley HTTP Library *****/
+    implementation 'com.android.volley:volley:1.1.1'
+    /**** ExoPlayerLibrary *****/
+    implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
+}
