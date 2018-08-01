@@ -3,12 +3,13 @@
     style="@style/width_match_height_wrap">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
-        style="@style/main_toolbar_style">
+        android:id="@+id/search_toolbar"
+        style="@style/search_toolbar_style">
+
         <android.support.v7.widget.SearchView
-            android:id="@+id/searchView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:id="@+id/sv_search_episodes"
+            style="@style/sv_search_episodes"/>
+
     </android.support.v7.widget.Toolbar>
 
 </android.support.design.widget.AppBarLayout>

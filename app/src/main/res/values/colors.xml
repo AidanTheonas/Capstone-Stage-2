@@ -9,4 +9,5 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorDivider">#BDBDBD</color>
     <color name="imageViewPlaceholderColor">#E0E0E0</color>
+    <color name="colorTransparent">#00000000</color>
 </resources>

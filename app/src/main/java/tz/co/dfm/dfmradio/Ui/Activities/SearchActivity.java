@@ -1,39 +1,46 @@
 package tz.co.dfm.dfmradio.Ui.Activities;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.view.Menu;
-import android.widget.EditText;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import tz.co.dfm.dfmradio.R;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,SearchView.OnFocusChangeListener {
+    @BindView(R.id.search_toolbar)
+    Toolbar searchToolbar;
+    @BindView(R.id.sv_search_episodes)
+    SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        ButterKnife.bind(this);
+        setSupportActionBar(searchToolbar);
+        if(getSupportActionBar() != null){
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+        searchView.setQueryHint(getString(R.string.search_episodes));
+        searchView.setIconifiedByDefault(false);
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextFocusChangeListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search_activity_menu, menu);
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.item_search).getActionView();
-        if(searchManager != null) {
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+               onBackPressed();
+                break;
         }
-        searchView.setIconifiedByDefault(false);
-
-        //Style the SearchView EditText
-        EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(getResources().getColor(R.color.colorTextIcons));
-        searchEditText.setHintTextColor(getResources().getColor(R.color.colorTextIcons));
-
         return true;
     }
 
@@ -41,5 +48,24 @@ public class SearchActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         overridePendingTransition(0,0);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Toast.makeText(this,"Clicked Submit:"+query,Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        Toast.makeText(this,"Text changed:"+newText,Toast.LENGTH_SHORT).show();
+        return false;
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(!hasFocus){
+            Toast.makeText(this,"Focus changed",Toast.LENGTH_SHORT).show();
+        }
     }
 }
