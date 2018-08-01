@@ -13,6 +13,11 @@
         <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/fade_transition</item>
     </style>
 
+    <style name="AppTheme.Search" parent="AppTheme">
+        <item name="android:editTextColor">@color/colorTextIcons</item>
+        <item name="android:textColorHint">@color/colorTextIcons</item>
+    </style>
+
     <style name="match_parent">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -82,6 +87,18 @@
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:textSize">@dimen/tv_episode_sub_title_text_size</item>
+    </style>
+
+    <style name="sv_search_episodes" parent="width_match_height_wrap">
+        <item name="searchIcon">@null</item>
+        <item name="searchHintIcon">@null</item>
+        <item name="queryBackground">@color/colorTransparent</item>
+    </style>
+
+    <style name="search_toolbar_style" parent="main_toolbar_style">
+        <item name="contentInsetLeft">@dimen/search_toolbar_inset</item>
+        <item name="contentInsetStart">@dimen/search_toolbar_inset</item>
+        <item name="contentInsetStartWithNavigation">@dimen/search_toolbar_inset</item>
     </style>
 
 </resources>
