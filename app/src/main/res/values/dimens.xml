@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tab_shows_indicator_height">4dp</dimen>
+
+    <dimen name="latest_episodes_card_layout_margin">8dp</dimen>
+    <dimen name="latest_episodes_card_corner_radius">3dp</dimen>
+
+    <dimen name="tv_episode_title_margin">8dp</dimen>
+    <dimen name="tv_episode_title_text_size">16sp</dimen>
+
+    <dimen name="tv_episode_sub_title_margin">8dp</dimen>
+    <dimen name="tv_episode_sub_title_text_size">12sp</dimen>
+</resources>

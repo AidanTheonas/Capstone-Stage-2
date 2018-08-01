@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Deep FM Radio</string>
+    <string name="app_name">DFM Radio</string>
+    <string name="by_string">by</string>
+    <string name="item_search">Search</string>
+    <string name="item_settings">Settings</string>
+    <string name="item_about_us">About us</string>
+    <string name="search_episodes">Search episode…</string>
 </resources>

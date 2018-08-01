@@ -1,10 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorTextIcons</item>
+    </style>
+
+    <style name="AppTheme.Main" parent="AppTheme">
+        <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
+        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/fade_transition</item>
     </style>
 
     <style name="match_parent">
@@ -25,6 +31,57 @@
     <style name="height_match_width_wrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="main_toolbar_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:minHeight">?attr/actionBarSize</item>
+        <item name="layout_scrollFlags">scroll|enterAlways</item>
+        <item name="titleTextColor">@color/colorTextIcons</item>
+        <item name="layout_collapseMode">pin</item>
+    </style>
+
+    <style name="tab_shows_style" parent="width_match_height_wrap">
+        <item name="tabMode">scrollable</item>
+        <item name="tabSelectedTextColor">@color/colorAccent</item>
+        <item name="tabTextColor">@color/colorTextIcons</item>
+        <item name="tabIndicatorHeight">@dimen/tab_shows_indicator_height</item>
+        <item name="tabGravity">fill</item>
+    </style>
+
+    <style name="latest_episodes_card_style" parent="width_match_height_wrap">
+        <item name="android:layout_margin">@dimen/latest_episodes_card_layout_margin</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/latest_episodes_card_corner_radius</item>
+    </style>
+
+    <style name="iv_show_episode_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">200dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:background">@color/imageViewPlaceholderColor</item>
+    </style>
+
+    <style name="tv_episode_title_style" parent="width_match_height_wrap">
+        <item name="android:paddingRight">@dimen/tv_episode_title_margin</item>
+        <item name="android:paddingLeft">@dimen/tv_episode_title_margin</item>
+        <item name="android:paddingTop">@dimen/tv_episode_title_margin</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:textSize">@dimen/tv_episode_title_text_size</item>
+    </style>
+
+    <style name="tv_episode_sub_title_style" parent="width_match_height_wrap">
+        <item name="android:padding">@dimen/tv_episode_sub_title_margin</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/tv_episode_sub_title_text_size</item>
     </style>
 
 </resources>

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="10dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:targetApi="lollipop">
-<TextView
-    android:id="@+id/tv_test_contents"
-    android:layout_margin="8dp"
-    android:padding="8dp"
-    tools:text="Some text here"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    style="@style/latest_episodes_card_style">
+
+    <LinearLayout
+        style="@style/width_match_height_wrap"
+        android:orientation="vertical">
+
+        <tz.co.dfm.dfmradio.Ui.CustomViews.ShowEpisodeImageView
+            android:id="@+id/iv_show_episode"
+            style="@style/iv_show_episode_style"/>
+        
+        <TextView
+            android:id="@+id/tv_episode_title"
+            tools:text="This is some title for this card"
+            style="@style/tv_episode_title_style" />
+
+        <TextView
+            android:id="@+id/tv_episode_subtitle"
+            style="@style/tv_episode_sub_title_style" />
+
+    </LinearLayout>
+
 </android.support.v7.widget.CardView>
