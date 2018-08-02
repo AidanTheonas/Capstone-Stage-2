@@ -12,4 +12,7 @@
     <string name="episode_thumbnail">Episode thumbnail</string>
     <string name="episode_to_player_transition">Episode to player transition</string>
     <string name="return_to_main_screen">Return to Main Screen</string>
+    <string name="toggle_full_screen_on_off">Toggle full screen on/off</string>
+    <string name="share_media">Share media</string>
+    <string name="add_to_favorites">Add to favorites</string>
 </resources>

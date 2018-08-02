@@ -148,14 +148,39 @@
         <item name="android:layout_alignParentTop">true</item>
     </style>
 
-    <style name="exo_back_button_style" parent="wrap_contents">
+    <style name="exo_button_style" parent="wrap_contents">
         <item name="android:layout_centerVertical">true</item>
-        <item name="android:layout_alignParentLeft">true</item>
-        <item name="android:layout_alignParentStart" tools:targetApi="jelly_bean_mr1">true</item>
-        <item name="android:src">@drawable/ic_arrow_back_white_24dp</item>
         <item name="android:padding">@dimen/exo_action_buttons_padding</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
+    </style>
+
+    <style name="exo_back_button_style" parent="exo_button_style">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentStart" tools:targetApi="jelly_bean_mr1">true</item>
+        <item name="android:src">@drawable/ic_arrow_back_white_24dp</item>
+    </style>
+
+    <style name="exo_full_screen_button_style" parent="exo_button_style">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentEnd" tools:targetApi="jelly_bean_mr1">true</item>
+        <item name="android:src">@drawable/ic_full_screen</item>
+    </style>
+
+    <style name="exo_share_button_style" parent="exo_button_style">
+        <item name="android:src">@drawable/ic_share_black_24dp</item>
+        <item name="android:layout_toLeftOf">@id/exo_full_screen_button</item>
+        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">@id/exo_full_screen_button</item>
+        <item name="android:layout_marginRight">@dimen/exo_action_buttons_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/exo_action_buttons_margin</item>
+    </style>
+
+    <style name="exo_add_favorite_button_style" parent="exo_button_style">
+        <item name="android:src">@drawable/ic_favorite_border_white_24dp</item>
+        <item name="android:layout_toLeftOf">@id/exo_share_button</item>
+        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">@id/exo_share_button</item>
+        <item name="android:layout_marginRight">@dimen/exo_action_buttons_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/exo_action_buttons_margin</item>
     </style>
 
     <style name="pv_episode_style">

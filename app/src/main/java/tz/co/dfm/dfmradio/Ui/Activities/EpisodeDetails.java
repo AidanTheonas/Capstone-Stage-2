@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -122,6 +123,21 @@ public class EpisodeDetails extends AppCompatActivity {
     @OnClick(R.id.exo_back_button)
     void returnToMainScreen(){
         onBackPressed();
+    }
+
+    @OnClick(R.id.exo_full_screen_button)
+    void toggleFullScreen(){
+        Toast.makeText(this,"Toggle full screen",Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.exo_share_button)
+    void shareMedia(){
+        Toast.makeText(this,"Share media",Toast.LENGTH_SHORT).show();
+    }
+
+    @OnClick(R.id.exo_add_favorite_button)
+    void addToFavorites(){
+        Toast.makeText(this,"Add to Favorites",Toast.LENGTH_SHORT).show();
     }
 
     @Override

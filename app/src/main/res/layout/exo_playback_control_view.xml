@@ -15,10 +15,27 @@
 
     <RelativeLayout
         style="@style/exo_actions_layout">
+
         <ImageView
             android:id="@+id/exo_back_button"
             android:contentDescription="@string/return_to_main_screen"
             style="@style/exo_back_button_style" />
+
+        <ImageView
+            android:id="@+id/exo_full_screen_button"
+            android:contentDescription="@string/toggle_full_screen_on_off"
+            style="@style/exo_full_screen_button_style" />
+
+        <ImageView
+            android:id="@+id/exo_share_button"
+            android:contentDescription="@string/share_media"
+            style="@style/exo_share_button_style" />
+
+        <ImageView
+            android:id="@+id/exo_add_favorite_button"
+            android:contentDescription="@string/add_to_favorites"
+            style="@style/exo_add_favorite_button_style" />
+
     </RelativeLayout>
 
     <LinearLayout style="@style/player_buttons_layout">
