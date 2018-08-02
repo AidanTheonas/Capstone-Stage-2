@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/width_match_height_wrap">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ep_details_toolbar"
+        style="@style/main_toolbar_style"/>
+
+</android.support.design.widget.AppBarLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Ui.Activities.EpisodeDetails">
+
+    <tz.co.dfm.dfmradio.Ui.CustomViews.EpisodesPlayerView
+        android:id="@+id/pv_episode"
+        style="@style/pv_episode_style"
+        tools:targetApi="lollipop" />
+
+</android.support.constraint.ConstraintLayout>

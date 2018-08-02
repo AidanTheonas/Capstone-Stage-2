@@ -10,4 +10,6 @@
     <color name="colorDivider">#BDBDBD</color>
     <color name="imageViewPlaceholderColor">#E0E0E0</color>
     <color name="colorTransparent">#00000000</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorPrimaryTransparent">#44F44336</color>
 </resources>

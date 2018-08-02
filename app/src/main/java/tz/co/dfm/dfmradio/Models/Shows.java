@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 @SuppressWarnings("unused")
 public class Shows implements Parcelable {
-    private String showName,episodeTitle,episodeDate,episodeDescription,episodeComments,episodeThumbnail,episodeMediaFile,episodeHostName;
+    private String showName,episodeTitle,episodeDate,episodeDescription,episodeComments,episodeThumbnail,episodeMediaFile,episodeHostName,mediaType;
 
     public Shows(){}
 
-    public Shows(String showName,String episodeTitle,String episodeDate,String episodeDescription,String episodeComments,String episodeThumbnail,String episodeMediaFile,String episodeHostName){
+    public Shows(String showName,String episodeTitle,String episodeDate,String episodeDescription,String episodeComments,String episodeThumbnail,String episodeMediaFile,String episodeHostName,String mediaType){
         this.showName = showName;
         this.episodeTitle = episodeTitle;
         this.episodeDate = episodeDate;
@@ -18,6 +18,7 @@ public class Shows implements Parcelable {
         this.episodeThumbnail = episodeThumbnail;
         this.episodeMediaFile = episodeMediaFile;
         this.episodeHostName = episodeHostName;
+        this.mediaType = mediaType;
     }
 
     private Shows(Parcel in) {
@@ -29,6 +30,7 @@ public class Shows implements Parcelable {
         episodeThumbnail = in.readString();
         episodeMediaFile = in.readString();
         episodeHostName = in.readString();
+        mediaType = in.readString();
     }
 
     public static final Creator<Shows> CREATOR = new Creator<Shows>() {
@@ -107,6 +109,14 @@ public class Shows implements Parcelable {
         return showName;
     }
 
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public String getMediaType() {
+        return mediaType;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -122,5 +132,6 @@ public class Shows implements Parcelable {
         dest.writeString(episodeThumbnail);
         dest.writeString(episodeMediaFile);
         dest.writeString(episodeHostName);
+        dest.writeString(mediaType);
     }
 }

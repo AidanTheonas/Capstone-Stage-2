@@ -15,6 +15,9 @@ public class Constants {
     private static final String D_LOVE_SHOW = "D-Love";
     private static final String SERMONS_TEACHINGS_SHOW = "Sermons and Teachings";
 
+    public static final String MEDIA_TYPE_AUDIO = "audio";
+    public static final String MEDIA_TYPE_VIDEO = "video";
+
     public static final String shows[] = {
             FAVORITE_SHOWS,
             ALL_SHOWS,

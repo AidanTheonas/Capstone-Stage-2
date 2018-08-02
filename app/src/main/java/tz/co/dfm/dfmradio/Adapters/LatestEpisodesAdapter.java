@@ -2,6 +2,7 @@ package tz.co.dfm.dfmradio.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,11 @@ import tz.co.dfm.dfmradio.R;
 public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAdapter.LatestEpisodeViewHolder> {
     private List<Shows> showsList;
     private Context context;
+    private OnEpisodeClickListener onEpisodeClickListener;
+
+    public void setOnEpisodeClickListener(OnEpisodeClickListener onEpisodeClickListener){
+        this.onEpisodeClickListener = onEpisodeClickListener;
+    }
 
     public LatestEpisodesAdapter(List<Shows> shows, Context context) {
         this.showsList = shows;
@@ -52,6 +58,7 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
             Picasso.get().load(show.getEpisodeThumbnail())
                     .into(holder.ivShowEpisodeImage);
         }
+        holder.cvEpisodeCard.setOnClickListener(v -> onEpisodeClickListener.loadEpisode(show,v));
     }
 
     @Override
@@ -76,6 +83,8 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
         TextView tvEpisodeSubTitle;
         @BindView(R.id.iv_show_episode)
         ImageView ivShowEpisodeImage;
+        @BindView(R.id.cv_episode)
+        CardView cvEpisodeCard;
 
         LatestEpisodeViewHolder(View view) {
             super(view);

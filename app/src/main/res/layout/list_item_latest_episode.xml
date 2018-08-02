@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/latest_episodes_card_style">
+    android:id="@+id/cv_episode"
+    style="@style/latest_episodes_card_style"
+    tools:targetApi="lollipop">
 
     <LinearLayout
         style="@style/width_match_height_wrap"

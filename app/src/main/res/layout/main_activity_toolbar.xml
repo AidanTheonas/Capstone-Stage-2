@@ -4,7 +4,13 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/main_toolbar"
-            style="@style/main_toolbar_style"/>
+            style="@style/main_toolbar_style">
+            <ImageView
+                android:contentDescription="@string/deep_fm_radio_podcast_logo"
+                style="@style/iv_app_logo_main_toolbar_style"/>
+            <TextView
+                style="@style/tv_app_description_main_toolbar"/>
+        </android.support.v7.widget.Toolbar>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_shows"
