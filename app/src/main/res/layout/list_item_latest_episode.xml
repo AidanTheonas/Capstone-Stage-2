@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_episode"
     style="@style/latest_episodes_card_style"
@@ -12,16 +11,17 @@
 
         <tz.co.dfm.dfmradio.Ui.CustomViews.ShowEpisodeImageView
             android:id="@+id/iv_show_episode"
-            style="@style/iv_show_episode_style"/>
-        
+            style="@style/iv_show_episode_style" />
+
         <TextView
             android:id="@+id/tv_episode_title"
-            tools:text="This is some title for this card"
-            style="@style/tv_episode_title_style" />
+            style="@style/tv_episode_title_style"
+            tools:text="This is some title for this card" />
 
         <TextView
             android:id="@+id/tv_episode_subtitle"
-            style="@style/tv_episode_sub_title_style" />
+            style="@style/tv_episode_sub_title_style"
+            tools:text="This is some subtitle for this card" />
 
     </LinearLayout>
 

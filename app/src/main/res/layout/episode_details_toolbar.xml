@@ -4,6 +4,6 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/ep_details_toolbar"
-        style="@style/main_toolbar_style"/>
+        style="@style/main_toolbar_style" />
 
 </android.support.design.widget.AppBarLayout>

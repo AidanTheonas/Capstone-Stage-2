@@ -13,7 +13,7 @@ public class EpisodesPlayerView extends PlayerView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = MeasureSpec.getSize(widthMeasureSpec);
-        int desiredHeight = width * 9 / 16;
+        int desiredHeight = width * 2 / 3;
         super.onMeasure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(desiredHeight, MeasureSpec.EXACTLY));
     }
 }

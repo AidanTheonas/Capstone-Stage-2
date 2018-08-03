@@ -15,4 +15,30 @@
     <string name="toggle_full_screen_on_off">Toggle full screen on/off</string>
     <string name="share_media">Share media</string>
     <string name="add_to_favorites">Add to favorites</string>
+    <string name="share_episode">Share episode</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_language">Language</string>
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_header_about">About</string>
+    <string name="key_notifications">key_notifications</string>
+    <string name="allow_notifications">Allow notifications</string>
+    <string name="key_notification_sound">key_notification_sound</string>
+    <string name="choose_notification_alert_sound">Choose notification alert sound</string>
+    <string name="notification_sound">Notification sound</string>
+    <string name="key_vibration">key_vibration</string>
+    <string name="allow_vibration">Allow vibration</string>
+    <string name="choose_language">Choose language</string>
+    <string name="key_app_language">key_app_language</string>
+    <string name="choose_preferred_language">Choose your preferred language</string>
+    <string-array name="languages_array">
+        <item>English</item>
+        <item>Swahili</item>
+    </string-array>
+    <string name="pref_ringtone_silent">Silent</string>
+    <string name="key_app_version">key_app_version</string>
+    <string name="app_version">App version</string>
+    <string name="key_about">key_about</string>
+    <string name="deep_fm_radio">Deep FM Radio</string>
+    <string name="about_dfm_radio">About DFM Radio</string>
 </resources>

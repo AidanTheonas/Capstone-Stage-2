@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
+    public static final String MEDIA_TYPE_AUDIO = "audio";
     private static final String FAVORITE_SHOWS = "Favorites";
     private static final String ALL_SHOWS = "All";
     private static final String D_YOUTH_SHOW = "D-Youth";
@@ -14,10 +15,6 @@ public class Constants {
     private static final String D_KIDS_SHOW = "D-Kids";
     private static final String D_LOVE_SHOW = "D-Love";
     private static final String SERMONS_TEACHINGS_SHOW = "Sermons and Teachings";
-
-    public static final String MEDIA_TYPE_AUDIO = "audio";
-    public static final String MEDIA_TYPE_VIDEO = "video";
-
     public static final String shows[] = {
             FAVORITE_SHOWS,
             ALL_SHOWS,

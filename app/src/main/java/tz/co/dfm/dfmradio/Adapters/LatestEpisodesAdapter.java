@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import tz.co.dfm.dfmradio.Helpers.Helper;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
 
@@ -24,14 +25,14 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
     private Context context;
     private OnEpisodeClickListener onEpisodeClickListener;
 
-    public void setOnEpisodeClickListener(OnEpisodeClickListener onEpisodeClickListener){
-        this.onEpisodeClickListener = onEpisodeClickListener;
-    }
-
     public LatestEpisodesAdapter(List<Shows> shows, Context context) {
         this.showsList = shows;
         this.context = context;
         setHasStableIds(true);
+    }
+
+    public void setOnEpisodeClickListener(OnEpisodeClickListener onEpisodeClickListener) {
+        this.onEpisodeClickListener = onEpisodeClickListener;
     }
 
     @NonNull
@@ -45,20 +46,14 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
     @Override
     public void onBindViewHolder(@NonNull LatestEpisodeViewHolder holder, int position) {
         Shows show = showsList.get(position);
-        StringBuilder episodeSubtitle = new StringBuilder()
-                .append(show.getEpisodeDate())
-                .append(" ")
-                .append(context.getString(R.string.by_string))
-                .append(" ")
-                .append(show.getEpisodeHostName());
-
+        String episodeSubtitle = Helper.buildEpisodeSubTitle(show.getEpisodeDate(), show.getEpisodeHostName(), context);
         holder.tvEpisodeTitle.setText(show.getEpisodeTitle());
         holder.tvEpisodeSubTitle.setText(episodeSubtitle);
-        if(!show.getEpisodeThumbnail().trim().equals("")) {
+        if (!show.getEpisodeThumbnail().trim().equals("")) {
             Picasso.get().load(show.getEpisodeThumbnail())
                     .into(holder.ivShowEpisodeImage);
         }
-        holder.cvEpisodeCard.setOnClickListener(v -> onEpisodeClickListener.loadEpisode(show,v));
+        holder.cvEpisodeCard.setOnClickListener(v -> onEpisodeClickListener.loadEpisode(show, v));
     }
 
     @Override

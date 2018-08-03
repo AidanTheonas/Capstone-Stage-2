@@ -8,7 +8,7 @@
 
         <android.support.v7.widget.SearchView
             android:id="@+id/sv_search_episodes"
-            style="@style/sv_search_episodes"/>
+            style="@style/sv_search_episodes" />
 
     </android.support.v7.widget.Toolbar>
 

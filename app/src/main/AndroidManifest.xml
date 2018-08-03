@@ -45,10 +45,30 @@
         <activity
             android:name=".Ui.Activities.EpisodeDetails"
             android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.Details"
             tools:ignore="InnerclassSeparator">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".Ui.Activities.AppCompatPreferenceActivity"
+            tools:ignore="InnerclassSeparator" />
+        <activity
+            android:name=".Ui.Activities.SettingsActivity"
+            android:label="@string/item_settings"
+            android:theme="@style/AppTheme.Settings"
+            tools:ignore="InnerclassSeparator" />
+
+        <activity
+            android:name=".Ui.Activities.AboutUsActivity"
+            android:label="@string/about_dfm_radio"
+            android:parentActivityName=".Ui.Activities.SettingsActivity"
+            android:theme="@style/AppTheme.Settings"
+            tools:ignore="InnerclassSeparator">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Ui.Activities.SettingsActivity" />
         </activity>
     </application>
 

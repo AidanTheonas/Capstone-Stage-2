@@ -5,9 +5,49 @@
     android:layout_height="match_parent"
     tools:context=".Ui.Activities.EpisodeDetails">
 
-    <tz.co.dfm.dfmradio.Ui.CustomViews.EpisodesPlayerView
-        android:id="@+id/pv_episode"
-        style="@style/pv_episode_style"
-        tools:targetApi="lollipop" />
+    <include layout="@layout/episode_player_view" />
+
+    <ScrollView style="@style/episode_details_scroll_view_style">
+
+        <LinearLayout style="@style/episode_details_linear_layout_style">
+
+            <TextView
+                android:id="@+id/tv_episode_title"
+                style="@style/tv_episode_title_details_style"
+                tools:text="Some episode title here" />
+
+            <TextView
+                android:id="@+id/tv_episode_sub_title"
+                style="@style/tv_episode_sub_title_details_style"
+                tools:text="Some episode sub title here" />
+
+            <View style="@style/horizontal_separator" />
+
+            <LinearLayout style="@style/action_buttons_linear_layout">
+
+                <Button
+                    android:id="@+id/add_to_favorites"
+                    style="@style/episode_details_action_buttons_style"
+                    android:drawableTop="@drawable/ic_favorite_border_primary_24dp"
+                    android:text="@string/add_to_favorites" />
+
+                <Button
+                    android:id="@+id/share_episode"
+                    style="@style/episode_details_action_buttons_style"
+                    android:drawableTop="@drawable/ic_share_primary_24dp"
+                    android:text="@string/share_episode" />
+
+            </LinearLayout>
+
+            <View style="@style/horizontal_separator" />
+
+            <TextView
+                android:id="@+id/tv_episode_description"
+                style="@style/tv_episode_description"
+                tools:text="This is some description of the episode" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

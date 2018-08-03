@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,14 +32,12 @@ import tz.co.dfm.dfmradio.Ui.Activities.EpisodeDetails;
  */
 @SuppressWarnings("ConstantConditions")
 public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickListener {
+    public static final String SHOW_MODEL = "show_model";
+    private static final String SHOW_TITLE = "show_title";
     @BindView(R.id.rv_episodes)
     RecyclerView recyclerViewEpisodes;
-
     private List<Shows> showsList = new ArrayList<>();
     private LatestEpisodesAdapter latestEpisodesAdapter;
-
-    private static final String SHOW_TITLE = "show_title";
-    public static final String SHOW_MODEL = "show_model";
     private String mShowTitle;
     private String mShowId;
 
@@ -76,14 +73,14 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_show_episodes, container, false);
-        ButterKnife.bind(this,view);
+        ButterKnife.bind(this, view);
 
         mShowId = String.valueOf(Constants.showsId.get(mShowTitle));
 
-        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList,getContext());
+        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList, getContext());
         latestEpisodesAdapter.setOnEpisodeClickListener(this);
         int gridLayoutManagerSpanCount = getContext().getResources().getInteger(R.integer.shows_grid_layout_span_count);
-        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(),gridLayoutManagerSpanCount);
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), gridLayoutManagerSpanCount);
         recyclerViewEpisodes.setLayoutManager(mLayoutManager);
         recyclerViewEpisodes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEpisodes.setAdapter(latestEpisodesAdapter);
@@ -92,9 +89,9 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         return view;
     }
 
-    public void prepareTestData(){
+    public void prepareTestData() {
         String[] photoArray = {
-            "http://142.93.29.1/images/2018-07-30_03_hillsong_united_-_scandal_of_grace.jpg",
+                "http://142.93.29.1/images/2018-07-30_03_hillsong_united_-_scandal_of_grace.jpg",
                 "https://images.pexels.com/photos/372326/pexels-photo-372326.jpeg?auto=compress&cs=tinysrgb&h=350",
                 "http://i.imgur.com/DvpvklR.png",
                 "https://images.pexels.com/photos/236339/pexels-photo-236339.jpeg?auto=compress&cs=tinysrgb&h=350",
@@ -112,16 +109,16 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         };
 
         String randomStr = "https://images.pexels.com/photos/794559/pexels-photo-794559.jpeg?auto=compress&cs=tinysrgb&h=350";
-        for(int i = 0;i<2;i++){
+        for (int i = 0; i < 2; i++) {
             randomStr = photoArray[new Random().nextInt(photoArray.length)];
             Shows shows = new Shows(
-                "D-Love",
+                    "D-Love",
                     "D-Love na Annastazia Rugaba",
                     "July 30, 2018",
-                    "Ungana na Annastazia Rugaba na Mwalimu Lilyan Omary kujua jinsi ya kujiandaa kabla ya kuoa au kuolewa",
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit tristique dignissim. Pellentesque sed eros elementum, porttitor risus sed, pellentesque mauris. Vivamus dapibus a tortor nec auctor. Quisque mauris purus, vestibulum eget ligula ut, tristique rutrum sem. Duis velit quam, eleifend a libero et, ullamcorper vulputate massa. In quis rutrum nisi, sed aliquet ipsum. Nunc eros nibh, lobortis sit amet dictum a, lacinia sit amet elit. Sed porttitor mollis lectus, at varius sem euismod eget.",
                     "10 COMMENTS",
                     randomStr,
-                    "http://142.93.29.1/media/2018-08-02_maombi_jtatu_25_7_2018_ilani.mp3",
+                    "http://142.93.29.1/media/2018-07-30_02_hillsong_united_-_up_in_arms.mp3",
                     "Annastazia Rugaba",
                     "audio"
             );
@@ -131,7 +128,7 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
                 "D-Love",
                 "D-Love na Annastazia Rugaba",
                 "July 30, 2018",
-                "Ungana na Annastazia Rugaba na Mwalimu Lilyan Omary kujua jinsi ya kujiandaa kabla ya kuoa au kuolewa",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam suscipit tristique dignissim. Pellentesque sed eros elementum, porttitor risus sed, pellentesque mauris. Vivamus dapibus a tortor nec auctor. Quisque mauris purus, vestibulum eget ligula ut, tristique rutrum sem. Duis velit quam, eleifend a libero et, ullamcorper vulputate massa. In quis rutrum nisi, sed aliquet ipsum. Nunc eros nibh, lobortis sit amet dictum a, lacinia sit amet elit. Sed porttitor mollis lectus, at varius sem euismod eget.",
                 "10 COMMENTS",
                 randomStr,
                 "https://www.sample-videos.com/video/mp4/720/big_buck_bunny_720p_30mb.mp4",
@@ -148,13 +145,13 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     }
 
     @Override
-    public void loadEpisode(Shows shows,View view) {
+    public void loadEpisode(Shows shows, View view) {
         Intent intent = new Intent(getActivity(), EpisodeDetails.class);
-        intent.putExtra(SHOW_MODEL,shows);
+        intent.putExtra(SHOW_MODEL, shows);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle();
-            getActivity().startActivity(intent,bundle);
-        }else{
+            getActivity().startActivity(intent, bundle);
+        } else {
             getActivity().startActivity(intent);
         }
     }

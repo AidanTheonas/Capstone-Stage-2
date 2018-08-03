@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<transitionSet xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<slide
-    android:slideEdge="top"
-    android:startDelay="100"
-    android:duration="300"
-    tools:targetApi="lollipop" />
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <slide
+        android:duration="300"
+        android:slideEdge="top"
+        android:startDelay="100"
+        tools:targetApi="lollipop" />
 </transitionSet>

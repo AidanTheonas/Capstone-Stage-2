@@ -8,14 +8,30 @@
         <item name="android:textColorSecondary">@color/colorTextIcons</item>
     </style>
 
+    <style name="AppTheme.Settings" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
+    </style>
+
     <style name="AppTheme.Main" parent="AppTheme">
         <item name="android:windowContentTransitions" tools:targetApi="lollipop">true</item>
-        <item name="android:windowExitTransition" tools:targetApi="lollipop">@transition/transition</item>
+        <item name="android:windowExitTransition" tools:targetApi="lollipop">
+            @transition/transition
+        </item>
     </style>
 
     <style name="AppTheme.Search" parent="AppTheme">
         <item name="android:editTextColor">@color/colorTextIcons</item>
         <item name="android:textColorHint">@color/colorTextIcons</item>
+    </style>
+
+    <style name="AppTheme.Details" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
     </style>
 
     <style name="match_parent">
@@ -65,7 +81,7 @@
 
     <style name="iv_show_episode_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">200dp</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:background">@color/imageViewPlaceholderColor</item>
     </style>
@@ -102,14 +118,15 @@
     </style>
 
     <style name="iv_app_logo_main_toolbar_style" parent="wrap_contents">
-       <item name="android:adjustViewBounds">true</item>
+        <item name="android:adjustViewBounds">true</item>
         <item name="android:src">@drawable/ic_accent_dfm_logo</item>
     </style>
 
     <style name="tv_app_description_main_toolbar" parent="height_match_width_wrap">
         <item name="android:text">@string/eepfm_radio</item>
         <item name="android:gravity">bottom</item>
-        <item name="android:paddingBottom">@dimen/tv_app_description_main_toolbar_padding_bottom</item>
+        <item name="android:paddingBottom">@dimen/tv_app_description_main_toolbar_padding_bottom
+        </item>
         <item name="android:textColor">@color/colorTextIcons</item>
         <item name="android:textSize">@dimen/tv_app_description_main_toolbar_text_size</item>
     </style>
@@ -161,6 +178,17 @@
         <item name="android:src">@drawable/ic_arrow_back_white_24dp</item>
     </style>
 
+    <style name="exo_title_linear_layout_style" parent="width_match_height_wrap">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_toRightOf">@id/exo_back_button</item>
+        <item name="android:layout_toEndOf" tools:targetApi="jelly_bean_mr1">@id/exo_back_button
+        </item>
+        <item name="android:layout_toLeftOf">@id/exo_add_favorite_button</item>
+        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">
+            @id/exo_add_favorite_button
+        </item>
+    </style>
+
     <style name="exo_full_screen_button_style" parent="exo_button_style">
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentEnd" tools:targetApi="jelly_bean_mr1">true</item>
@@ -170,17 +198,25 @@
     <style name="exo_share_button_style" parent="exo_button_style">
         <item name="android:src">@drawable/ic_share_black_24dp</item>
         <item name="android:layout_toLeftOf">@id/exo_full_screen_button</item>
-        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">@id/exo_full_screen_button</item>
+        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">
+            @id/exo_full_screen_button
+        </item>
         <item name="android:layout_marginRight">@dimen/exo_action_buttons_margin</item>
-        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/exo_action_buttons_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/exo_action_buttons_margin
+        </item>
     </style>
 
     <style name="exo_add_favorite_button_style" parent="exo_button_style">
         <item name="android:src">@drawable/ic_favorite_border_white_24dp</item>
         <item name="android:layout_toLeftOf">@id/exo_share_button</item>
-        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">@id/exo_share_button</item>
+        <item name="android:layout_toStartOf" tools:targetApi="jelly_bean_mr1">
+            @id/exo_share_button
+        </item>
         <item name="android:layout_marginRight">@dimen/exo_action_buttons_margin</item>
-        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/exo_action_buttons_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/exo_action_buttons_margin
+        </item>
     </style>
 
     <style name="pv_episode_style">
@@ -191,6 +227,84 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toStartOf">parent</item>
         <item name="layout_constraintTop_toTopOf">parent</item>
+    </style>
+
+    <style name="episode_details_scroll_view_style" parent="match_parent">
+        <item name="resize_mode">fixed_height</item>
+        <item name="use_artwork">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="layout_constraintEnd_toEndOf">parent</item>
+        <item name="layout_constraintStart_toStartOf">parent</item>
+        <item name="layout_constraintTop_toBottomOf">@id/pv_episode</item>
+        <item name="layout_constraintBottom_toBottomOf">parent</item>
+    </style>
+
+    <style name="episode_details_linear_layout_style" parent="width_match_height_wrap">
+        <item name="android:paddingLeft">@dimen/episode_details_linear_layout_padding</item>
+        <item name="android:paddingRight">@dimen/episode_details_linear_layout_padding</item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/episode_details_linear_layout_padding
+        </item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/episode_details_linear_layout_padding
+        </item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="tv_episode_title_details_style" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/tv_episode_title_padding</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+    </style>
+
+    <style name="tv_episode_sub_title_details_style" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingLeft">@dimen/tv_episode_sub_title_padding</item>
+        <item name="android:paddingRight">@dimen/tv_episode_sub_title_padding</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/tv_episode_sub_title_padding
+        </item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/tv_episode_sub_title_padding
+        </item>
+        <item name="android:paddingBottom">@dimen/tv_episode_sub_title_padding</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorSecondaryText</item>
+        <item name="android:textSize">@dimen/tv_episode_sub_title_text_size</item>
+    </style>
+
+    <style name="horizontal_separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/colorDivider</item>
+    </style>
+
+    <style name="action_buttons_linear_layout" parent="width_match_height_wrap">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingTop">@dimen/action_buttons_linear_layout_vertical_padding</item>
+        <item name="android:paddingBottom">@dimen/action_buttons_linear_layout_vertical_padding
+        </item>
+    </style>
+
+    <style name="episode_details_action_buttons_style" parent="Widget.AppCompat.ButtonBar">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="tv_episode_description" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:padding">@dimen/tv_episode_description_padding</item>
     </style>
 
 </resources>

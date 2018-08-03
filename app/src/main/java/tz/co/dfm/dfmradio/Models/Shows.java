@@ -5,11 +5,23 @@ import android.os.Parcelable;
 
 @SuppressWarnings("unused")
 public class Shows implements Parcelable {
-    private String showName,episodeTitle,episodeDate,episodeDescription,episodeComments,episodeThumbnail,episodeMediaFile,episodeHostName,mediaType;
+    public static final Creator<Shows> CREATOR = new Creator<Shows>() {
+        @Override
+        public Shows createFromParcel(Parcel in) {
+            return new Shows(in);
+        }
 
-    public Shows(){}
+        @Override
+        public Shows[] newArray(int size) {
+            return new Shows[size];
+        }
+    };
+    private String showName, episodeTitle, episodeDate, episodeDescription, episodeComments, episodeThumbnail, episodeMediaFile, episodeHostName, mediaType;
 
-    public Shows(String showName,String episodeTitle,String episodeDate,String episodeDescription,String episodeComments,String episodeThumbnail,String episodeMediaFile,String episodeHostName,String mediaType){
+    public Shows() {
+    }
+
+    public Shows(String showName, String episodeTitle, String episodeDate, String episodeDescription, String episodeComments, String episodeThumbnail, String episodeMediaFile, String episodeHostName, String mediaType) {
         this.showName = showName;
         this.episodeTitle = episodeTitle;
         this.episodeDate = episodeDate;
@@ -33,88 +45,76 @@ public class Shows implements Parcelable {
         mediaType = in.readString();
     }
 
-    public static final Creator<Shows> CREATOR = new Creator<Shows>() {
-        @Override
-        public Shows createFromParcel(Parcel in) {
-            return new Shows(in);
-        }
-
-        @Override
-        public Shows[] newArray(int size) {
-            return new Shows[size];
-        }
-    };
-
-    public void setEpisodeHostName(String episodeHostName) {
-        this.episodeHostName = episodeHostName;
-    }
-
     public String getEpisodeHostName() {
         return episodeHostName;
     }
 
-    public void setEpisodeComments(String episodeComments) {
-        this.episodeComments = episodeComments;
-    }
-
-    public void setEpisodeDate(String episodeDate) {
-        this.episodeDate = episodeDate;
-    }
-
-    public void setEpisodeDescription(String episodeDescription) {
-        this.episodeDescription = episodeDescription;
-    }
-
-    public void setEpisodeMediaFile(String episodeMediaFile) {
-        this.episodeMediaFile = episodeMediaFile;
-    }
-
-    public void setEpisodeThumbnail(String episodeThumbnail) {
-        this.episodeThumbnail = episodeThumbnail;
-    }
-
-    public void setEpisodeTitle(String episodeTitle) {
-        this.episodeTitle = episodeTitle;
-    }
-
-    public void setShowName(String showName) {
-        this.showName = showName;
+    public void setEpisodeHostName(String episodeHostName) {
+        this.episodeHostName = episodeHostName;
     }
 
     public String getEpisodeThumbnail() {
         return episodeThumbnail;
     }
 
+    public void setEpisodeThumbnail(String episodeThumbnail) {
+        this.episodeThumbnail = episodeThumbnail;
+    }
+
     public String getEpisodeTitle() {
         return episodeTitle;
+    }
+
+    public void setEpisodeTitle(String episodeTitle) {
+        this.episodeTitle = episodeTitle;
     }
 
     public String getEpisodeComments() {
         return episodeComments;
     }
 
+    public void setEpisodeComments(String episodeComments) {
+        this.episodeComments = episodeComments;
+    }
+
     public String getEpisodeDate() {
         return episodeDate;
+    }
+
+    public void setEpisodeDate(String episodeDate) {
+        this.episodeDate = episodeDate;
     }
 
     public String getEpisodeDescription() {
         return episodeDescription;
     }
 
+    public void setEpisodeDescription(String episodeDescription) {
+        this.episodeDescription = episodeDescription;
+    }
+
     public String getEpisodeMediaFile() {
         return episodeMediaFile;
+    }
+
+    public void setEpisodeMediaFile(String episodeMediaFile) {
+        this.episodeMediaFile = episodeMediaFile;
     }
 
     public String getShowName() {
         return showName;
     }
 
-    public void setMediaType(String mediaType) {
-        this.mediaType = mediaType;
+    public void setShowName(String showName) {
+        this.showName = showName;
     }
 
     public String getMediaType() {
         return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
     @Override

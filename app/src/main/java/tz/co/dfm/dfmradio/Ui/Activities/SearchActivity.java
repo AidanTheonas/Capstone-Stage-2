@@ -12,7 +12,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import tz.co.dfm.dfmradio.R;
 
-public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener,SearchView.OnFocusChangeListener {
+public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, SearchView.OnFocusChangeListener {
     @BindView(R.id.search_toolbar)
     Toolbar searchToolbar;
     @BindView(R.id.sv_search_episodes)
@@ -24,9 +24,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
         setSupportActionBar(searchToolbar);
-        if(getSupportActionBar() != null){
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         searchView.setQueryHint(getString(R.string.search_episodes));
         searchView.setIconifiedByDefault(false);
@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-               onBackPressed();
+                onBackPressed();
                 break;
         }
         return true;
@@ -47,25 +47,25 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        Toast.makeText(this,"Clicked Submit:"+query,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Clicked Submit:" + query, Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        Toast.makeText(this,"Text changed:"+newText,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Text changed:" + newText, Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        if(!hasFocus){
-            Toast.makeText(this,"Focus changed",Toast.LENGTH_SHORT).show();
+        if (!hasFocus) {
+            Toast.makeText(this, "Focus changed", Toast.LENGTH_SHORT).show();
         }
     }
 }

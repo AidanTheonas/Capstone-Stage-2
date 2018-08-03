@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/pref_header_notifications">
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_notifications"
+            android:title="@string/allow_notifications" />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="@string/key_vibration"
+            android:title="@string/allow_vibration" />
+
+        <RingtonePreference
+            android:defaultValue="content://settings/system/notification_sound"
+            android:dependency="@string/key_notifications"
+            android:key="@string/key_notification_sound"
+            android:ringtoneType="notification"
+            android:summary="@string/choose_notification_alert_sound"
+            android:title="@string/notification_sound" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_header_language">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogTitle="@string/choose_language"
+            android:entries="@array/languages_array"
+            android:entryValues="@array/languages_array"
+            android:key="@string/key_app_language"
+            android:summary="@string/choose_preferred_language" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/pref_header_about">
+
+        <PreferenceScreen
+            android:key="@string/key_app_version"
+            android:title="@string/app_version" />
+
+        <PreferenceScreen
+            android:key="@string/key_about"
+            android:title="@string/deep_fm_radio" />
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

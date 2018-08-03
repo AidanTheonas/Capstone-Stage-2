@@ -8,12 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tz.co.dfm.dfmradio.Adapters.LatestShowsViewPagerAdapter;
 import tz.co.dfm.dfmradio.Ui.Activities.SearchActivity;
+import tz.co.dfm.dfmradio.Ui.Activities.SettingsActivity;
 import tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.shows;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mainToolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         showsTab.setupWithViewPager(showsViewPager);
@@ -58,15 +58,14 @@ public class MainActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.item_search:
-                    Intent myIntent = new Intent(this, SearchActivity.class);
-                    startActivity(myIntent);
-                    overridePendingTransition(0,0);
+                Intent searchIntent = new Intent(this, SearchActivity.class);
+                startActivity(searchIntent);
+                overridePendingTransition(0, 0);
                 return true;
             case R.id.item_settings:
-                Toast.makeText(this,"Settings",Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item_about_us:
-                Toast.makeText(this,"About us",Toast.LENGTH_SHORT).show();
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivity(settingsIntent);
+                overridePendingTransition(0, 0);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

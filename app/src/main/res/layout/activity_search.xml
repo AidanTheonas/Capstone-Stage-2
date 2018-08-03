@@ -3,8 +3,8 @@
     style="@style/match_parent"
     tools:context=".Ui.Activities.SearchActivity">
 
-    <include layout="@layout/search_activity_toolbar"/>
+    <include layout="@layout/search_activity_toolbar" />
 
-    <include layout="@layout/fragment_show_episodes"/>
+    <include layout="@layout/fragment_show_episodes" />
 
 </android.support.constraint.ConstraintLayout>

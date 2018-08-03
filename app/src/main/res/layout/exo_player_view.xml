@@ -21,11 +21,13 @@
             style="@style/match_parent"
             android:background="@color/colorBlack" />
 
-        <ImageView
+        <tz.co.dfm.dfmradio.Ui.CustomViews.ShowEpisodeImageView
             android:id="@+id/exo_thumbnail"
             style="@style/match_parent"
+            android:background="@color/colorPrimary"
             android:contentDescription="@string/episode_thumbnail"
-            android:scaleType="fitXY"/>
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
 
         <ProgressBar
             android:id="@+id/exo_buffering"
