@@ -70,6 +70,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Ui.Activities.SettingsActivity" />
         </activity>
+
+        <provider
+            android:name=".Models.generated.FavoriteEpisodesProvider"
+            android:authorities="tz.co.dfm.dfmradio.content.android.provider"
+            android:exported="true"
+            tools:ignore="ExportedContentProvider,InnerclassSeparator" />
     </application>
 
 </manifest>

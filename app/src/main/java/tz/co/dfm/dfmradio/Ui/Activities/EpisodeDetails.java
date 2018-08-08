@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -23,6 +24,7 @@ import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
+import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
@@ -77,6 +79,7 @@ public class EpisodeDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_episode_details);
         ButterKnife.bind(this);
+        pvEpisode.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
 
         if (savedInstanceState != null) {
             currentPlayerPosition = savedInstanceState.getLong(PLAYER_POSITION);
@@ -108,7 +111,7 @@ public class EpisodeDetails extends AppCompatActivity {
         }
     }
 
-    public void setDetails(String episodeTitle, String episodeSubTitle, String episodeDescription, String mediaType, String mediaUrl) {
+    public void setDetails(String episodeTitle, String episodeSubTitle, String episodeDescription, int mediaType, String mediaUrl) {
         tvEpisodeTitle.setText(episodeTitle);
         tvEpisodeSubTitle.setText(episodeSubTitle);
         tvEpisodeDescription.setText(episodeDescription);
@@ -120,7 +123,7 @@ public class EpisodeDetails extends AppCompatActivity {
             tvLandscapeEpSubTitle.setText(episodeSubTitle);
         }
 
-        if (mediaType.trim().equals(MEDIA_TYPE_AUDIO.trim())) {
+        if (mediaType == MEDIA_TYPE_AUDIO) {
             ivExoPlayerThumbnail.setVisibility(View.VISIBLE);
             exoView.setVisibility(View.GONE);
             exoFullScreenButton.setVisibility(View.INVISIBLE);

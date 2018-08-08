@@ -1,6 +1,5 @@
 package tz.co.dfm.dfmradio.Adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,18 +15,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import tz.co.dfm.dfmradio.Helpers.Helper;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
 
 public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAdapter.LatestEpisodeViewHolder> {
     private List<Shows> showsList;
-    private Context context;
     private OnEpisodeClickListener onEpisodeClickListener;
 
-    public LatestEpisodesAdapter(List<Shows> shows, Context context) {
+    public LatestEpisodesAdapter(List<Shows> shows) {
         this.showsList = shows;
-        this.context = context;
         setHasStableIds(true);
     }
 
@@ -46,9 +42,8 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
     @Override
     public void onBindViewHolder(@NonNull LatestEpisodeViewHolder holder, int position) {
         Shows show = showsList.get(position);
-        String episodeSubtitle = Helper.buildEpisodeSubTitle(show.getEpisodeDate(), show.getEpisodeHostName(), context);
         holder.tvEpisodeTitle.setText(show.getEpisodeTitle());
-        holder.tvEpisodeSubTitle.setText(episodeSubtitle);
+        holder.tvEpisodeSubTitle.setText(show.getEpisodeDate());
         if (!show.getEpisodeThumbnail().trim().equals("")) {
             Picasso.get().load(show.getEpisodeThumbnail())
                     .into(holder.ivShowEpisodeImage);

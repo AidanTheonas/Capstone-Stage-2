@@ -12,8 +12,10 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import tz.co.dfm.dfmradio.Adapters.LatestShowsViewPagerAdapter;
+import tz.co.dfm.dfmradio.Helpers.Constants;
 import tz.co.dfm.dfmradio.Ui.Activities.SearchActivity;
 import tz.co.dfm.dfmradio.Ui.Activities.SettingsActivity;
+import tz.co.dfm.dfmradio.Ui.Fragments.FavoriteEpisodesFragment;
 import tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.shows;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         LatestShowsViewPagerAdapter adapter = new LatestShowsViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new FavoriteEpisodesFragment(), Constants.FAVORITE_SHOWS);
         for (String show : shows) {
             adapter.addFragment(ShowEpisodesFragment.newInstance(show), show);
         }

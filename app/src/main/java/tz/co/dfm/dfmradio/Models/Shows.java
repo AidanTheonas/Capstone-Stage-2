@@ -16,17 +16,19 @@ public class Shows implements Parcelable {
             return new Shows[size];
         }
     };
-    private String showName, episodeTitle, episodeDate, episodeDescription, episodeComments, episodeThumbnail, episodeMediaFile, episodeHostName, mediaType;
+    private String showName, episodeTitle, episodeDate, episodeDescription, episodeThumbnail, episodeMediaFile, episodeHostName;
+
+    private int episodeId, mediaType;
 
     public Shows() {
     }
 
-    public Shows(String showName, String episodeTitle, String episodeDate, String episodeDescription, String episodeComments, String episodeThumbnail, String episodeMediaFile, String episodeHostName, String mediaType) {
+    public Shows(int episodeId, String showName, String episodeTitle, String episodeDate, String episodeDescription, String episodeThumbnail, String episodeMediaFile, String episodeHostName, int mediaType) {
+        this.episodeId = episodeId;
         this.showName = showName;
         this.episodeTitle = episodeTitle;
         this.episodeDate = episodeDate;
         this.episodeDescription = episodeDescription;
-        this.episodeComments = episodeComments;
         this.episodeThumbnail = episodeThumbnail;
         this.episodeMediaFile = episodeMediaFile;
         this.episodeHostName = episodeHostName;
@@ -38,11 +40,19 @@ public class Shows implements Parcelable {
         episodeTitle = in.readString();
         episodeDate = in.readString();
         episodeDescription = in.readString();
-        episodeComments = in.readString();
         episodeThumbnail = in.readString();
         episodeMediaFile = in.readString();
         episodeHostName = in.readString();
-        mediaType = in.readString();
+        mediaType = in.readInt();
+        episodeId = in.readInt();
+    }
+
+    public void setEpisodeId(int episodeId) {
+        this.episodeId = episodeId;
+    }
+
+    public int getEpisodeId() {
+        return episodeId;
     }
 
     public String getEpisodeHostName() {
@@ -67,14 +77,6 @@ public class Shows implements Parcelable {
 
     public void setEpisodeTitle(String episodeTitle) {
         this.episodeTitle = episodeTitle;
-    }
-
-    public String getEpisodeComments() {
-        return episodeComments;
-    }
-
-    public void setEpisodeComments(String episodeComments) {
-        this.episodeComments = episodeComments;
     }
 
     public String getEpisodeDate() {
@@ -109,11 +111,11 @@ public class Shows implements Parcelable {
         this.showName = showName;
     }
 
-    public String getMediaType() {
+    public int getMediaType() {
         return mediaType;
     }
 
-    public void setMediaType(String mediaType) {
+    public void setMediaType(int mediaType) {
         this.mediaType = mediaType;
     }
 
@@ -128,10 +130,10 @@ public class Shows implements Parcelable {
         dest.writeString(episodeTitle);
         dest.writeString(episodeDate);
         dest.writeString(episodeDescription);
-        dest.writeString(episodeComments);
         dest.writeString(episodeThumbnail);
         dest.writeString(episodeMediaFile);
         dest.writeString(episodeHostName);
-        dest.writeString(mediaType);
+        dest.writeInt(mediaType);
+        dest.writeInt(episodeId);
     }
 }

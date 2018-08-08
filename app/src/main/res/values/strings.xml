@@ -41,4 +41,6 @@
     <string name="key_about">key_about</string>
     <string name="deep_fm_radio">Deep FM Radio</string>
     <string name="about_dfm_radio">About DFM Radio</string>
+    <string name="network_error_message">Network error! Please check your internet connection and click retry.</string>
+    <string name="no_episodes_found_tap_to_refresh">No episodes found, tap to refresh.</string>
 </resources>
