@@ -51,6 +51,8 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     public static final String SHOW_MODEL = "show_model";
     private static final String SHOW_TITLE = "show_title";
 
+    private static final String SHOWS_ADAPTER_STATE = "shows_adapter_state";
+
     public static final String EPISODE_ID = "episode_id";
     public static final String EPISODE_TITLE = "episode_title";
     public static final String EPISODE_DATE = "episode_date";
@@ -104,14 +106,6 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     }
 
     @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(true);
-        if (isVisibleToUser && latestEpisodesAdapter != null) {
-            loadServerData();
-        }
-    }
-
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -121,8 +115,16 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         swipeRefreshEpisodes.setOnRefreshListener(this);
         swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryLight));
         showId = String.valueOf(Constants.showsId.get(showTitle));
+        boolean shouldLoadServerData = false;
+        if(savedInstanceState != null) {
+            latestEpisodesAdapter = savedInstanceState.getParcelable(SHOWS_ADAPTER_STATE);
+        }
 
-        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList,SHOWS_EPISODE_FRAGMENT);
+        if(latestEpisodesAdapter == null) {
+            latestEpisodesAdapter = new LatestEpisodesAdapter(showsList, SHOWS_EPISODE_FRAGMENT);
+            shouldLoadServerData = true;
+        }
+
         latestEpisodesAdapter.setOnEpisodeClickListener(this);
         int gridLayoutManagerSpanCount = getContext().getResources().getInteger(R.integer.shows_grid_layout_span_count);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), gridLayoutManagerSpanCount);
@@ -130,6 +132,7 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         recyclerViewEpisodes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEpisodes.setAdapter(latestEpisodesAdapter);
 
+        if(shouldLoadServerData)
         loadServerData();
         return mainView;
     }
@@ -191,12 +194,6 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        loadServerData();
-    }
-
-    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
@@ -221,5 +218,11 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         }
         swipeRefreshEpisodes.setRefreshing(true);
         loadServerData();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SHOWS_ADAPTER_STATE,latestEpisodesAdapter);
     }
 }
