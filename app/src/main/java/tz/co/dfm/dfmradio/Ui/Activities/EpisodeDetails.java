@@ -1,11 +1,23 @@
 package tz.co.dfm.dfmradio.Ui.Activities;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +27,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -30,21 +41,29 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tz.co.dfm.dfmradio.Helpers.Helper;
+import tz.co.dfm.dfmradio.Models.FavoriteEpisodesColumns;
+import tz.co.dfm.dfmradio.Models.FavoriteEpisodesProvider;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.MEDIA_TYPE_AUDIO;
+import static tz.co.dfm.dfmradio.Helpers.Constants.WATCH_EPISODE_PATH;
 import static tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment.SHOW_MODEL;
 
+@SuppressWarnings("StringBufferReplaceableByString")
 public class EpisodeDetails extends AppCompatActivity {
     public static final String PLAYER_USER_AGENT = "episodeVideo";
     private static final String PLAYER_POSITION = "playerPosition";
     private static final String PLAYER_STATE = "playerState";
     private static long currentPlayerPosition = -1;
+    private static final int STORAGE_ACCESS_REQUEST_CODE = 10;
     boolean isPlayWhenReady = true;
     @BindView(R.id.pv_episode)
     PlayerView pvEpisode;
@@ -91,7 +110,7 @@ public class EpisodeDetails extends AppCompatActivity {
             Uri mediaFileUri = Uri.parse(shows.getEpisodeMediaFile());
             initializePlayer(mediaFileUri);
 
-            String episodeSubtitle = Helper.buildEpisodeSubTitle(shows.getEpisodeDate(), shows.getEpisodeHostName(), this);
+            String episodeSubtitle = Helper.buildEpisodeSubTitle(shows.getEpisodeDate(), shows.getEpisodeHostName(), shows.getShowName());
             setDetails(
                     shows.getEpisodeTitle(),
                     episodeSubtitle,
@@ -99,6 +118,24 @@ public class EpisodeDetails extends AppCompatActivity {
                     shows.getMediaType(),
                     shows.getEpisodeThumbnail()
             );
+            updateFavoriteButtons();
+        }
+
+    }
+
+    public void updateFavoriteButtons() {
+        if (isAddedToFavorites() > 0) {
+            actionFavoriteButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_primary_24dp, 0, 0);
+            actionFavoriteButton.setText(R.string.remove_from_favorites);
+            exoFavoriteButton.setImageResource(R.drawable.ic_favorite_white_24dp);
+            actionFavoriteButton.setTag(1);
+            exoFavoriteButton.setTag(1);
+        } else {
+            actionFavoriteButton.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.ic_favorite_border_primary_24dp, 0, 0);
+            actionFavoriteButton.setText(R.string.add_to_favorites);
+            exoFavoriteButton.setImageResource(R.drawable.ic_favorite_border_white_24dp);
+            actionFavoriteButton.setTag(0);
+            exoFavoriteButton.setTag(0);
         }
     }
 
@@ -116,6 +153,10 @@ public class EpisodeDetails extends AppCompatActivity {
         tvEpisodeSubTitle.setText(episodeSubTitle);
         tvEpisodeDescription.setText(episodeDescription);
 
+        Picasso.get()
+                .load(Uri.parse(mediaUrl))
+                .into(ivExoPlayerThumbnail);
+
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             TextView tvLandscapeEpTitle = findViewById(R.id.tv_episode_title_landscape);
             tvLandscapeEpTitle.setText(episodeTitle);
@@ -132,9 +173,6 @@ public class EpisodeDetails extends AppCompatActivity {
             layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             exoShareButton.setLayoutParams(layoutParams);
 
-            Picasso.get()
-                    .load(Uri.parse(mediaUrl))
-                    .into(ivExoPlayerThumbnail);
             pvEpisode.setControllerShowTimeoutMs(0);
             pvEpisode.setControllerHideOnTouch(false);
         } else {
@@ -201,24 +239,130 @@ public class EpisodeDetails extends AppCompatActivity {
         setFullScreen();
     }
 
-    @OnClick(R.id.exo_share_button)
-    void shareMedia() {
-        Toast.makeText(this, "Share media", Toast.LENGTH_SHORT).show();
-    }
 
     @OnClick(R.id.exo_add_favorite_button)
-    void addToFavorites() {
-        Toast.makeText(this, "Add to Favorites", Toast.LENGTH_SHORT).show();
+    void exoAddFavorites() {
+        ToggleFavorites(exoFavoriteButton);
     }
 
     @OnClick(R.id.add_to_favorites)
     void addFavorite() {
-        Toast.makeText(this, "Add to Favorites", Toast.LENGTH_SHORT).show();
+        ToggleFavorites(actionFavoriteButton);
+    }
+
+    public void ToggleFavorites(View view) {
+        int tag = Integer.parseInt(view.getTag().toString());
+        if (tag == 0) {
+            addToFavorites();
+        } else {
+            removeFromFavorites();
+        }
     }
 
     @OnClick(R.id.share_episode)
     void shareEpisode() {
-        Toast.makeText(this, "Add to Favorites", Toast.LENGTH_SHORT).show();
+        checkPermissionShare();
+    }
+
+    @OnClick(R.id.exo_share_button)
+    void shareMedia() {
+        checkPermissionShare();
+    }
+
+    public void checkPermissionShare() {
+        if (isStoragePermissionGranted()) {
+            performShare();
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest
+                    .permission
+                    .WRITE_EXTERNAL_STORAGE}, STORAGE_ACCESS_REQUEST_CODE);
+        }
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void performShare() {
+        ivExoPlayerThumbnail.setDrawingCacheEnabled(true);
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) ivExoPlayerThumbnail.getDrawable();
+        Bitmap episodeThumbnailBitmap = bitmapDrawable.getBitmap();
+        FileOutputStream fileOutputStream;
+        File writeFile = null;
+        try {
+            File filePath = Environment.getExternalStorageDirectory();
+            File storageDirectory = new File(filePath.getAbsolutePath() + File.separator + "DFMRadio Podcast");
+            if (!storageDirectory.isDirectory()) {
+                boolean directoryMakeStatus = storageDirectory.mkdirs();
+                if (!directoryMakeStatus) {
+                    Toast.makeText(this, R.string.error_sharing_episode, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            String episodeThumbnailFileName = String.format("%s.jpg", shows.getEpisodeId()+"_"+shows.getEpisodeTitle());
+            writeFile = new File(storageDirectory, episodeThumbnailFileName);
+            fileOutputStream = new FileOutputStream(writeFile);
+            episodeThumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (Exception e) {
+            Toast.makeText(this, R.string.error_sharing_episode, Toast.LENGTH_SHORT).show();
+        }
+
+        if (writeFile != null) {
+            String mediaUrl = new StringBuilder()
+                    .append(WATCH_EPISODE_PATH)
+                    .append(shows.getEpisodeId())
+                    .toString();
+
+            String shareText = new StringBuilder()
+                    .append(shows.getMediaType()==MEDIA_TYPE_AUDIO?getString(R.string.listen_now):getString(R.string.watch_now))
+                    .append("\n")
+                    .append(shows.getEpisodeTitle())
+                    .append("\n")
+                    .append(mediaUrl)
+                    .toString();
+
+            Intent shareEpisode = new Intent(Intent.ACTION_SEND);
+            shareEpisode.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(writeFile));
+            shareEpisode.putExtra(Intent.EXTRA_TEXT,shareText);
+            shareEpisode.setType("*/*");
+            startActivity(Intent.createChooser(shareEpisode, getString(R.string.share_episode)));
+        }
+    }
+
+    public boolean isStoragePermissionGranted() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int result = checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            return result == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == STORAGE_ACCESS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                performShare();
+            } else {
+                Snackbar allowStorageAccessPermission = Snackbar
+                        .make(findViewById(R.id.cl_episode_details_main_view), R.string.allow_storage_permission, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.app_settings, view ->
+                            openAppSettings()
+                        );
+                TextView tvSnackbar= allowStorageAccessPermission.getView().findViewById(android.support.design.R.id.snackbar_text);
+                tvSnackbar.setMaxLines(5);
+                allowStorageAccessPermission.show();
+            }
+        }
+    }
+
+    void openAppSettings(){
+        final Intent intent = new Intent();
+        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.parse("package:" + getPackageName()));
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     public void setFullScreen() {
@@ -232,5 +376,58 @@ public class EpisodeDetails extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    public void addToFavorites() {
+        final Uri[] returnedURI = new Uri[1];
+        ContentValues values = new ContentValues();
+        values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_ID, shows.getEpisodeId());
+        values.put(FavoriteEpisodesColumns.COLUMN_SHOW_NAME, shows.getShowName());
+        values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_TITLE, shows.getEpisodeTitle());
+        values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_DATE, shows.getEpisodeDate());
+        values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_DESCRIPTION, shows.getEpisodeDescription());
+        values.put(FavoriteEpisodesColumns.COLUMN_THUMBNAIL_FILE, shows.getEpisodeThumbnail());
+        values.put(FavoriteEpisodesColumns.COLUMN_MEDIA_FILE, shows.getEpisodeMediaFile());
+        values.put(FavoriteEpisodesColumns.COLUMN_SHOW_HOST, shows.getEpisodeHostName());
+        values.put(FavoriteEpisodesColumns.COLUMN_MEDIA_TYPE, shows.getMediaType());
+        values.put(FavoriteEpisodesColumns.COLUMN_TIMESTAMP, Helper.getCurrentTimeAsInteger());
+        returnedURI[0] = getContentResolver().insert(FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI, values);
+        if (returnedURI[0] == null) {
+            Toast.makeText(this, R.string.error_adding_episode_to_favorites, Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, R.string.episode_added_to_favorites, Toast.LENGTH_LONG).show();
+            updateFavoriteButtons();
+        }
+    }
+
+    public void removeFromFavorites() {
+        int data = getContentResolver().delete(FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI,
+                FavoriteEpisodesColumns.COLUMN_EPISODE_ID + " =?",
+                new String[]{
+                        shows.getEpisodeId() + ""
+                });
+        if (data > 0) {
+            Toast.makeText(this, R.string.episode_removed, Toast.LENGTH_LONG).show();
+            updateFavoriteButtons();
+        } else {
+            Toast.makeText(this, R.string.error_removing_episode, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public int isAddedToFavorites() {
+        int count = 0;
+        Cursor cursor = getContentResolver().query(FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI,
+                null,
+                FavoriteEpisodesColumns.COLUMN_EPISODE_ID + " =?",
+                new String[]{
+                        shows.getEpisodeId() + ""
+                },
+                null);
+        if (cursor != null) {
+            count = cursor.getCount();
+            cursor.close();
+        }
+
+        return count;
     }
 }

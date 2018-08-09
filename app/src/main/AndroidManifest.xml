@@ -5,6 +5,8 @@
 
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +22,6 @@
             android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -59,7 +60,6 @@
             android:label="@string/item_settings"
             android:theme="@style/AppTheme.Settings"
             tools:ignore="InnerclassSeparator" />
-
         <activity
             android:name=".Ui.Activities.AboutUsActivity"
             android:label="@string/about_dfm_radio"
@@ -76,6 +76,18 @@
             android:authorities="tz.co.dfm.dfmradio.content.android.provider"
             android:exported="true"
             tools:ignore="ExportedContentProvider,InnerclassSeparator" />
+
+        <activity android:name=".Ui.Activities.LoadSharedMedia"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http"
+                    android:host="192.168.137.1"
+                    android:pathPrefix="/capstone-project/public/watchepisode"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

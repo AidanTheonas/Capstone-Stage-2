@@ -41,6 +41,22 @@
     <string name="key_about">key_about</string>
     <string name="deep_fm_radio">Deep FM Radio</string>
     <string name="about_dfm_radio">About DFM Radio</string>
+    <!-- End Strings related to Settings -->
+
     <string name="network_error_message">Network error! Please check your internet connection and click retry.</string>
     <string name="no_episodes_found_tap_to_refresh">No episodes found, tap to refresh.</string>
+    <string name="no_favorite_episodes_added">No favorite episodes added, tap to reload.</string>
+    <string name="episode_removed">Episode removed from favorites</string>
+    <string name="error_removing_episode">Error removing episode from favorites</string>
+    <string name="error_adding_episode_to_favorites">Error adding episode to favorites</string>
+    <string name="episode_added_to_favorites">Episode added to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
+    <string name="error_sharing_episode">Error sharing episode</string>
+    <string name="allow_storage_permission"><![CDATA[To share episodes you need to grant storage access permission to this app. Click settings => permissions => turn storage permission on.]]></string>
+    <string name="app_settings">Settings</string>
+    <string name="retry_load">Retry</string>
+    <string name="the_episode_appears_to_be_missing_tap_to_view_other_episodes">The episode appears to be missing, tap to view other episodes.</string>
+    <string name="listen_now">Listen now on DFM Radio Podcast</string>
+    <string name="watch_now">Watch now on DFM Radio Podcast</string>
+    <string name="no_episodes_found">No episodes found.</string>
 </resources>

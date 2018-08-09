@@ -26,4 +26,6 @@
     <dimen name="tv_episode_description_padding">8dp</dimen>
     <dimen name="episodes_list_pb_margin">8dp</dimen>
     <dimen name="btn_tap_to_refresh_padding">16dp</dimen>
+    <dimen name="tv_no_episodes_padding">16dp</dimen>
+    <dimen name="tv_no_episodes_text_size">14sp</dimen>
 </resources>

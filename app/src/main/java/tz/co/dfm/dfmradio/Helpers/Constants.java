@@ -5,25 +5,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
-    public static  final String BASE_URL = "http://192.168.137.1/CapstoneProject/public/";
+    public static  final String BASE_URL = "http://192.168.137.1/capstone-project/public/";
 
-    static  final String VIDEO_PATH = "http://192.168.137.1/CapstoneProject/public/storage/media/video/";
+    static  final String VIDEO_PATH = "http://192.168.137.1/capstone-project/storage/app/public/media/video/";
 
-    static  final String AUDIO_PATH = "http://192.168.137.1/CapstoneProject/public/storage/media/audio/";
+    static  final String AUDIO_PATH = "http://192.168.137.1/capstone-project/storage/app/public/media/audio/";
 
-    public static  final String THUMBNAILS_PATH = "http://192.168.137.1/CapstoneProject/public/storage/thumbnails/";
+    static  final String THUMBNAILS_PATH = "http://192.168.137.1/capstone-project/storage/app/public/thumbnails/";
+
+    public static final String WATCH_EPISODE_PATH = "http://192.168.137.1/capstone-project/public/watchepisode/";
+
+    public static final String SEARCH_EPISODE_PATH = "http://192.168.137.1/capstone-project/public/searchEpisode/";
 
     public static final int MEDIA_TYPE_AUDIO = 1;
 
     public static final String FAVORITE_SHOWS = "Favorites";
-    private static final String ALL_SHOWS = "All";
+    public static final String ALL_SHOWS = "All";
     private static final String D_YOUTH_SHOW = "D-Youth";
     private static final String D_HITS_SHOW = "D-Hits";
     private static final String D_TESTIFY_SHOW = "D-Testify";
     private static final String D_LOVE_SHOW = "D-Love";
 
     public static final String shows[] = {
-            ALL_SHOWS,
             D_YOUTH_SHOW,
             D_HITS_SHOW,
             D_TESTIFY_SHOW,

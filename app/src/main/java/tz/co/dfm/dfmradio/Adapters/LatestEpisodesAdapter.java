@@ -21,9 +21,14 @@ import tz.co.dfm.dfmradio.R;
 public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAdapter.LatestEpisodeViewHolder> {
     private List<Shows> showsList;
     private OnEpisodeClickListener onEpisodeClickListener;
+    public static final int SHOWS_EPISODE_FRAGMENT = 1;
+    public static final int SEARCH_ACTIVITY = 2;
 
-    public LatestEpisodesAdapter(List<Shows> shows) {
+    private int source;
+
+    public LatestEpisodesAdapter(List<Shows> shows,int source) {
         this.showsList = shows;
+        this.source = source;
         setHasStableIds(true);
     }
 
@@ -34,8 +39,14 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
     @NonNull
     @Override
     public LatestEpisodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_item_latest_episode, parent, false);
+        View itemView;
+        if(source == SHOWS_EPISODE_FRAGMENT){
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_latest_episode, parent, false);
+        }else {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.list_item_search_results, parent, false);
+        }
         return new LatestEpisodeViewHolder(itemView);
     }
 

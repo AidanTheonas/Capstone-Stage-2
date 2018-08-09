@@ -18,6 +18,7 @@ import tz.co.dfm.dfmradio.Ui.Activities.SettingsActivity;
 import tz.co.dfm.dfmradio.Ui.Fragments.FavoriteEpisodesFragment;
 import tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment;
 
+import static tz.co.dfm.dfmradio.Helpers.Constants.ALL_SHOWS;
 import static tz.co.dfm.dfmradio.Helpers.Constants.shows;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager() {
         LatestShowsViewPagerAdapter adapter = new LatestShowsViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(ShowEpisodesFragment.newInstance(ALL_SHOWS), ALL_SHOWS);
         adapter.addFragment(new FavoriteEpisodesFragment(), Constants.FAVORITE_SHOWS);
         for (String show : shows) {
             adapter.addFragment(ShowEpisodesFragment.newInstance(show), show);

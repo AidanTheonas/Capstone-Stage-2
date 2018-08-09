@@ -37,6 +37,7 @@ import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
 import tz.co.dfm.dfmradio.Ui.Activities.EpisodeDetails;
 
+import static tz.co.dfm.dfmradio.Adapters.LatestEpisodesAdapter.SHOWS_EPISODE_FRAGMENT;
 import static tz.co.dfm.dfmradio.Helpers.Constants.BASE_URL;
 import static tz.co.dfm.dfmradio.Helpers.Helper.buildMediaUrl;
 import static tz.co.dfm.dfmradio.Helpers.Helper.buildThumbnailUrl;
@@ -105,7 +106,7 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(true);
-        if (isVisibleToUser) {
+        if (isVisibleToUser && latestEpisodesAdapter != null) {
             loadServerData();
         }
     }
@@ -118,16 +119,18 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         ButterKnife.bind(this, mainView);
         requestQueue = Volley.newRequestQueue(getContext());
         swipeRefreshEpisodes.setOnRefreshListener(this);
-        swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorAccent));
+        swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryLight));
         showId = String.valueOf(Constants.showsId.get(showTitle));
 
-        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList);
+        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList,SHOWS_EPISODE_FRAGMENT);
         latestEpisodesAdapter.setOnEpisodeClickListener(this);
         int gridLayoutManagerSpanCount = getContext().getResources().getInteger(R.integer.shows_grid_layout_span_count);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), gridLayoutManagerSpanCount);
         recyclerViewEpisodes.setLayoutManager(mLayoutManager);
         recyclerViewEpisodes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEpisodes.setAdapter(latestEpisodesAdapter);
+
+        loadServerData();
         return mainView;
     }
 
@@ -181,10 +184,16 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
             swipeRefreshEpisodes.setRefreshing(false);
             errorSnackbar = Snackbar
                     .make(getActivity().findViewById(R.id.cl_main_view), R.string.network_error_message, Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Retry", view -> loadServerData());
+                    .setAction(R.string.retry_load, view -> loadServerData());
             errorSnackbar.show();
         });
         requestQueue.add(jsonArrayRequest);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadServerData();
     }
 
     @Override

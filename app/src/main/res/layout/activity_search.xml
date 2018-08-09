@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_parent"
+    android:orientation="vertical"
     tools:context=".Ui.Activities.SearchActivity">
 
     <include layout="@layout/search_activity_toolbar" />
 
-    <include layout="@layout/fragment_show_episodes" />
+    <ProgressBar
+        android:id="@+id/pb_searching"
+        style="@style/wrap_contents"
+        android:layout_gravity="center"
+        android:indeterminate="false"
+        android:indeterminateDrawable="@drawable/loading_drawable"
+        android:visibility="gone" />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_no_episodes"
+        android:text="@string/no_episodes_found"
+        android:padding="@dimen/tv_no_episodes_padding"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/tv_no_episodes_text_size"
+        style="@style/width_match_height_wrap"
+        android:visibility="gone"/>
+
+    <include layout="@layout/recycler_view_episodes_list"/>
+
+</LinearLayout>

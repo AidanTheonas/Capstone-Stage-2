@@ -1,8 +1,6 @@
 package tz.co.dfm.dfmradio.Helpers;
 
-import android.content.Context;
-
-import tz.co.dfm.dfmradio.R;
+import java.util.Date;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.AUDIO_PATH;
 import static tz.co.dfm.dfmradio.Helpers.Constants.MEDIA_TYPE_AUDIO;
@@ -11,13 +9,13 @@ import static tz.co.dfm.dfmradio.Helpers.Constants.VIDEO_PATH;
 
 @SuppressWarnings("StringBufferReplaceableByString")
 public class Helper {
-    public static String buildEpisodeSubTitle(String episodeDate, String episodeHostName, Context context) {
+    public static String buildEpisodeSubTitle(String episodeDate, String episodeHostName, String showName) {
         return new StringBuilder()
                 .append(episodeDate)
-                .append(" ")
-                .append(context.getString(R.string.by_string))
-                .append(" ")
-                .append(episodeHostName).toString();
+                .append(" | ")
+                .append(episodeHostName)
+                .append(" | ")
+                .append(showName).toString();
     }
 
     public static String buildThumbnailUrl(String thumbnailFile) {
@@ -40,5 +38,9 @@ public class Helper {
                     .toString();
         }
 
+    }
+
+    public static int getCurrentTimeAsInteger() {
+        return (int) (new Date().getTime() / 1000);
     }
 }
