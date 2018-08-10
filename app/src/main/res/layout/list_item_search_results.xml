@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_episode"
-    style="@style/latest_episodes_card_style"
+    style="@style/search_episodes_card_style"
     tools:targetApi="lollipop">
 
     <android.support.constraint.ConstraintLayout
@@ -13,35 +13,36 @@
         <android.support.constraint.Guideline
             android:id="@+id/iv_hz_guideline"
             style="@style/wrap_contents"
-            app:layout_constraintGuide_percent="1"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="1" />
 
         <ImageView
             android:id="@+id/iv_show_episode"
-            android:contentDescription="@string/episode_thumbnail"
-            style="@style/iv_show_episode_search_style" />
+            style="@style/iv_show_episode_search_style"
+            android:contentDescription="@string/episode_thumbnail" />
 
         <android.support.constraint.Guideline
             android:id="@+id/iv_vt_guideline"
             style="@style/wrap_contents"
-            app:layout_constraintGuide_percent="0.30"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.30" />
 
 
-            <TextView
-                android:id="@+id/tv_episode_title"
-                style="@style/tv_episode_title_search_style"
-                tools:text="This is some title for this card" />
+        <TextView
+            android:id="@+id/tv_episode_title"
+            style="@style/tv_episode_title_search_style"
+            tools:text="This is some title for this card" />
+
         <android.support.constraint.Guideline
             android:id="@+id/tv_hz_guideline"
             style="@style/wrap_contents"
-            app:layout_constraintGuide_percent="0.5"
-            android:orientation="horizontal" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
-            <TextView
-                android:id="@+id/tv_episode_subtitle"
-                style="@style/tv_episode_sub_title_search_style"
-                tools:text="This is some subtitle for this card" />
+        <TextView
+            android:id="@+id/tv_episode_subtitle"
+            style="@style/tv_episode_sub_title_search_style"
+            tools:text="This is some subtitle for this card" />
 
 
     </android.support.constraint.ConstraintLayout>

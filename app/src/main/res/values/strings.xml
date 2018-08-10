@@ -59,4 +59,8 @@
     <string name="listen_now">Listen now on DFM Radio Podcast</string>
     <string name="watch_now">Watch now on DFM Radio Podcast</string>
     <string name="no_episodes_found">No episodes found.</string>
+    <string name="which_episode_do_you_want_to_search">Which episode do you want to search?</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="go_to_previous_activity">Go to previous activity</string>
 </resources>

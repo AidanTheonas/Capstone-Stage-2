@@ -4,14 +4,15 @@
     style="@style/match_parent"
     android:orientation="vertical"
     tools:context=".Ui.Activities.LoadSharedMedia">
+
     <ProgressBar
         android:id="@+id/pb_loading_link"
         style="@style/pb_loading_link" />
 
     <Button
         android:id="@+id/btn_view_other_episodes"
+        style="@style/btn_tap_to_refresh_style"
         android:drawableTop="@drawable/ic_error_black"
-        android:visibility="gone"
         android:text="@string/the_episode_appears_to_be_missing_tap_to_view_other_episodes"
-        style="@style/btn_tap_to_refresh_style" />
+        android:visibility="gone" />
 </LinearLayout>

@@ -11,8 +11,8 @@
 
         <tz.co.dfm.dfmradio.Ui.CustomViews.ShowEpisodeImageView
             android:id="@+id/iv_show_episode"
-            android:contentDescription="@string/episode_thumbnail"
-            style="@style/iv_show_episode_style" />
+            style="@style/iv_show_episode_style"
+            android:contentDescription="@string/episode_thumbnail" />
 
         <TextView
             android:id="@+id/tv_episode_title"

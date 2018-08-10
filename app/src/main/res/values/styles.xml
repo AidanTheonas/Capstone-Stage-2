@@ -109,6 +109,9 @@
         <item name="searchIcon">@null</item>
         <item name="searchHintIcon">@null</item>
         <item name="queryBackground">@color/colorTransparent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:paddingLeft">@dimen/sv_search_episodes_padding_start</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/sv_search_episodes_padding_start</item>
     </style>
 
     <style name="search_toolbar_style" parent="main_toolbar_style">
@@ -348,7 +351,7 @@
         <item name="android:maxLines">2</item>
         <item name="android:ellipsize">end</item>
         <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">gravity</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:gravity">top|left</item>
     </style>
 
     <style name="tv_episode_sub_title_search_style" parent="tv_episode_sub_title_style">
@@ -359,7 +362,18 @@
         <item name="layout_constraintEnd_toEndOf">parent</item>
         <item name="layout_constraintStart_toEndOf">@id/iv_vt_guideline</item>
         <item name="android:textAlignment" tools:targetApi="jelly_bean_mr1">gravity</item>
-        <item name="android:gravity">center_vertical</item>
+        <item name="android:gravity">top|left</item>
+    </style>
+
+    <style name="search_episodes_card_style" parent="latest_episodes_card_style">
+        <item name="android:layout_height">75dp</item>
+    </style>
+
+    <style name="custom_back_button" parent="height_match_width_wrap">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:padding">@dimen/custom_back_button_padding</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
     </style>
 
 </resources>

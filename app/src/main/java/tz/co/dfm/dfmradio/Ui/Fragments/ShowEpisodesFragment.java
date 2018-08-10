@@ -49,10 +49,7 @@ import static tz.co.dfm.dfmradio.Helpers.Helper.buildThumbnailUrl;
 @SuppressWarnings({"ConstantConditions", "StringBufferReplaceableByString"})
 public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickListener, SwipeRefreshLayout.OnRefreshListener {
     public static final String SHOW_MODEL = "show_model";
-    private static final String SHOW_TITLE = "show_title";
-
-    private static final String SHOWS_ADAPTER_STATE = "shows_adapter_state";
-
+    public static final String SHOWS_ADAPTER_STATE = "shows_adapter_state";
     public static final String EPISODE_ID = "episode_id";
     public static final String EPISODE_TITLE = "episode_title";
     public static final String EPISODE_DATE = "episode_date";
@@ -62,21 +59,19 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     public static final String EPISODE_FILE_URL = "episode_file_url";
     public static final String EPISODE_DESCRIPTION = "episode_description";
     public static final String EPISODE_THUMBNAIL = "episode_thumbnail";
-
+    private static final String SHOW_TITLE = "show_title";
     @BindView(R.id.rv_episodes)
     RecyclerView recyclerViewEpisodes;
     @BindView(R.id.sl_refresh_episodes)
     SwipeRefreshLayout swipeRefreshEpisodes;
     @BindView(R.id.btn_tap_to_refresh)
     Button btnTapToRefresh;
-
+    Snackbar errorSnackbar;
     private List<Shows> showsList = new ArrayList<>();
     private LatestEpisodesAdapter latestEpisodesAdapter;
     private String showTitle;
     private String showId;
-
     private RequestQueue requestQueue;
-    Snackbar errorSnackbar;
 
     public ShowEpisodesFragment() {
         // Required empty public constructor
@@ -106,6 +101,20 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(true);
+        if (isVisibleToUser && latestEpisodesAdapter != null) {
+            loadServerData();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadServerData();
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -113,14 +122,14 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         ButterKnife.bind(this, mainView);
         requestQueue = Volley.newRequestQueue(getContext());
         swipeRefreshEpisodes.setOnRefreshListener(this);
-        swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorPrimaryLight));
+        swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimaryLight));
         showId = String.valueOf(Constants.showsId.get(showTitle));
         boolean shouldLoadServerData = false;
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             latestEpisodesAdapter = savedInstanceState.getParcelable(SHOWS_ADAPTER_STATE);
         }
 
-        if(latestEpisodesAdapter == null) {
+        if (latestEpisodesAdapter == null) {
             latestEpisodesAdapter = new LatestEpisodesAdapter(showsList, SHOWS_EPISODE_FRAGMENT);
             shouldLoadServerData = true;
         }
@@ -132,8 +141,8 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
         recyclerViewEpisodes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEpisodes.setAdapter(latestEpisodesAdapter);
 
-        if(shouldLoadServerData)
-        loadServerData();
+        if (shouldLoadServerData)
+            loadServerData();
         return mainView;
     }
 
@@ -185,6 +194,7 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
             latestEpisodesAdapter.notifyDataSetChanged();
         }, error -> {
             swipeRefreshEpisodes.setRefreshing(false);
+            if (getActivity() == null) return;
             errorSnackbar = Snackbar
                     .make(getActivity().findViewById(R.id.cl_main_view), R.string.network_error_message, Snackbar.LENGTH_INDEFINITE)
                     .setAction(R.string.retry_load, view -> loadServerData());
@@ -223,6 +233,6 @@ public class ShowEpisodesFragment extends Fragment implements OnEpisodeClickList
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(SHOWS_ADAPTER_STATE,latestEpisodesAdapter);
+        outState.putParcelable(SHOWS_ADAPTER_STATE, latestEpisodesAdapter);
     }
 }

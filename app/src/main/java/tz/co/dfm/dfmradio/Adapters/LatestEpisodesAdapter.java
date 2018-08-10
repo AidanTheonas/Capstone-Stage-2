@@ -21,24 +21,8 @@ import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
 
 public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAdapter.LatestEpisodeViewHolder> implements Parcelable {
-    private List<Shows> showsList;
-    private OnEpisodeClickListener onEpisodeClickListener;
     public static final int SHOWS_EPISODE_FRAGMENT = 1;
     public static final int SEARCH_ACTIVITY = 2;
-
-    private int source;
-
-    public LatestEpisodesAdapter(List<Shows> shows,int source) {
-        this.showsList = shows;
-        this.source = source;
-        setHasStableIds(true);
-    }
-
-    private LatestEpisodesAdapter(Parcel in) {
-        showsList = in.createTypedArrayList(Shows.CREATOR);
-        source = in.readInt();
-    }
-
     public static final Creator<LatestEpisodesAdapter> CREATOR = new Creator<LatestEpisodesAdapter>() {
         @Override
         public LatestEpisodesAdapter createFromParcel(Parcel in) {
@@ -50,6 +34,20 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
             return new LatestEpisodesAdapter[size];
         }
     };
+    private List<Shows> showsList;
+    private OnEpisodeClickListener onEpisodeClickListener;
+    private int source;
+
+    public LatestEpisodesAdapter(List<Shows> shows, int source) {
+        this.showsList = shows;
+        this.source = source;
+        setHasStableIds(true);
+    }
+
+    private LatestEpisodesAdapter(Parcel in) {
+        showsList = in.createTypedArrayList(Shows.CREATOR);
+        source = in.readInt();
+    }
 
     public void setOnEpisodeClickListener(OnEpisodeClickListener onEpisodeClickListener) {
         this.onEpisodeClickListener = onEpisodeClickListener;
@@ -59,10 +57,10 @@ public class LatestEpisodesAdapter extends RecyclerView.Adapter<LatestEpisodesAd
     @Override
     public LatestEpisodeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView;
-        if(source == SHOWS_EPISODE_FRAGMENT){
+        if (source == SHOWS_EPISODE_FRAGMENT) {
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item_latest_episode, parent, false);
-        }else {
+        } else {
             itemView = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.list_item_search_results, parent, false);
         }

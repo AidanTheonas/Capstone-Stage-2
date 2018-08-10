@@ -62,8 +62,8 @@ public class EpisodeDetails extends AppCompatActivity {
     public static final String PLAYER_USER_AGENT = "episodeVideo";
     private static final String PLAYER_POSITION = "playerPosition";
     private static final String PLAYER_STATE = "playerState";
-    private static long currentPlayerPosition = -1;
     private static final int STORAGE_ACCESS_REQUEST_CODE = 10;
+    private static long currentPlayerPosition = -1;
     boolean isPlayWhenReady = true;
     @BindView(R.id.pv_episode)
     PlayerView pvEpisode;
@@ -296,7 +296,7 @@ public class EpisodeDetails extends AppCompatActivity {
                     return;
                 }
             }
-            String episodeThumbnailFileName = String.format("%s.jpg", shows.getEpisodeId()+"_"+shows.getEpisodeTitle());
+            String episodeThumbnailFileName = String.format("%s.jpg", shows.getEpisodeId() + "_" + shows.getEpisodeTitle());
             writeFile = new File(storageDirectory, episodeThumbnailFileName);
             fileOutputStream = new FileOutputStream(writeFile);
             episodeThumbnailBitmap.compress(Bitmap.CompressFormat.JPEG, 90, fileOutputStream);
@@ -313,7 +313,7 @@ public class EpisodeDetails extends AppCompatActivity {
                     .toString();
 
             String shareText = new StringBuilder()
-                    .append(shows.getMediaType()==MEDIA_TYPE_AUDIO?getString(R.string.listen_now):getString(R.string.watch_now))
+                    .append(shows.getMediaType() == MEDIA_TYPE_AUDIO ? getString(R.string.listen_now) : getString(R.string.watch_now))
                     .append("\n")
                     .append(shows.getEpisodeTitle())
                     .append("\n")
@@ -322,7 +322,7 @@ public class EpisodeDetails extends AppCompatActivity {
 
             Intent shareEpisode = new Intent(Intent.ACTION_SEND);
             shareEpisode.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(writeFile));
-            shareEpisode.putExtra(Intent.EXTRA_TEXT,shareText);
+            shareEpisode.putExtra(Intent.EXTRA_TEXT, shareText);
             shareEpisode.setType("*/*");
             startActivity(Intent.createChooser(shareEpisode, getString(R.string.share_episode)));
         }
@@ -347,16 +347,16 @@ public class EpisodeDetails extends AppCompatActivity {
                 Snackbar allowStorageAccessPermission = Snackbar
                         .make(findViewById(R.id.cl_episode_details_main_view), R.string.allow_storage_permission, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.app_settings, view ->
-                            openAppSettings()
+                                openAppSettings()
                         );
-                TextView tvSnackbar= allowStorageAccessPermission.getView().findViewById(android.support.design.R.id.snackbar_text);
+                TextView tvSnackbar = allowStorageAccessPermission.getView().findViewById(android.support.design.R.id.snackbar_text);
                 tvSnackbar.setMaxLines(5);
                 allowStorageAccessPermission.show();
             }
         }
     }
 
-    void openAppSettings(){
+    void openAppSettings() {
         final Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.parse("package:" + getPackageName()));

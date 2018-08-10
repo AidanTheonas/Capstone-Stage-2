@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/match_parent"
     android:orientation="vertical">
 
     <Button
         android:id="@+id/btn_tap_to_refresh"
-        android:visibility="gone"
-        style="@style/btn_tap_to_refresh_style" />
+        style="@style/btn_tap_to_refresh_style"
+        android:visibility="gone" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/sl_refresh_episodes"
         style="@style/match_parent">
-        <include layout="@layout/recycler_view_episodes_list"/>
+
+        <include layout="@layout/recycler_view_episodes_list" />
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>

@@ -47,12 +47,12 @@ public class Shows implements Parcelable {
         episodeId = in.readInt();
     }
 
-    public void setEpisodeId(int episodeId) {
-        this.episodeId = episodeId;
-    }
-
     public int getEpisodeId() {
         return episodeId;
+    }
+
+    public void setEpisodeId(int episodeId) {
+        this.episodeId = episodeId;
     }
 
     public String getEpisodeHostName() {

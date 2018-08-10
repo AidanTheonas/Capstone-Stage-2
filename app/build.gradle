@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "tz.co.dfm.dfmradio"
@@ -10,9 +11,21 @@ android {
         versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs {
+        release{
+            storeFile file('capstone_project.jks')
+            keyAlias 'capstone'
+            keyPassword 'capstone@2018'
+            storePassword 'capstone@2018'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
+            signingConfig signingConfigs.release
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }

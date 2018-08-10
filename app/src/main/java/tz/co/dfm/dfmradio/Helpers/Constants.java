@@ -5,22 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Constants {
-    public static  final String BASE_URL = "http://192.168.137.1/capstone-project/public/";
-
-    static  final String VIDEO_PATH = "http://192.168.137.1/capstone-project/storage/app/public/media/video/";
-
-    static  final String AUDIO_PATH = "http://192.168.137.1/capstone-project/storage/app/public/media/audio/";
-
-    static  final String THUMBNAILS_PATH = "http://192.168.137.1/capstone-project/storage/app/public/thumbnails/";
-
-    public static final String WATCH_EPISODE_PATH = "http://192.168.137.1/capstone-project/public/watchepisode/";
-
-    public static final String SEARCH_EPISODE_PATH = "http://192.168.137.1/capstone-project/public/searchEpisode/";
-
+    public static final String BASE_URL = "https://www.capstone-stage-2.aidantheonas.com/public/";
+    public static final String WATCH_EPISODE_PATH = "https://www.capstone-stage-2.aidantheonas.com/public/watchepisode/";
+    public static final String SEARCH_EPISODE_PATH = "https://www.capstone-stage-2.aidantheonas.com/public/searchEpisode/";
     public static final int MEDIA_TYPE_AUDIO = 1;
-
     public static final String FAVORITE_SHOWS = "Favorites";
     public static final String ALL_SHOWS = "All";
+    static final String VIDEO_PATH = "https://www.capstone-stage-2.aidantheonas.com/public/storage/media/video/";
+    static final String AUDIO_PATH = "https://www.capstone-stage-2.aidantheonas.com/public/storage/media/audio/";
+    static final String THUMBNAILS_PATH = "https://www.capstone-stage-2.aidantheonas.com/public/storage/thumbnails/";
     private static final String D_YOUTH_SHOW = "D-Youth";
     private static final String D_HITS_SHOW = "D-Hits";
     private static final String D_TESTIFY_SHOW = "D-Testify";

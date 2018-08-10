@@ -22,6 +22,7 @@
             android:theme="@style/AppTheme.Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,13 +33,14 @@
             android:theme="@style/AppTheme.Search"
             tools:ignore="InnerclassSeparator"
             tools:targetApi="jelly_bean">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/main_activity_searchable" />
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -70,24 +72,42 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Ui.Activities.SettingsActivity" />
         </activity>
+        <activity
+            android:name=".Ui.Activities.LoadSharedMedia"
+            tools:ignore="InnerclassSeparator">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="www.capstone-stage-2.aidantheonas.com"
+                    android:pathPrefix="/public/watchepisode"
+                    android:scheme="https" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name=".Models.generated.FavoriteEpisodesProvider"
             android:authorities="tz.co.dfm.dfmradio.content.android.provider"
             android:exported="true"
             tools:ignore="ExportedContentProvider,InnerclassSeparator" />
+        <provider
+            android:name=".Models.SearchSuggestionsProvider"
+            android:authorities="tz.co.dfm.dfmradio.content.android.searchSuggestionsProvider"
+            android:exported="false"
+            tools:ignore="InnerclassSeparator" />
 
-        <activity android:name=".Ui.Activities.LoadSharedMedia"
-            tools:ignore="InnerclassSeparator">
+        <receiver android:name=".Widget.DFMRadioWidget">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http"
-                    android:host="192.168.137.1"
-                    android:pathPrefix="/capstone-project/public/watchepisode"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
-        </activity>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/dfmradio_wiget_info" />
+        </receiver>
     </application>
 
 </manifest>

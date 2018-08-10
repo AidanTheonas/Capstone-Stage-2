@@ -25,13 +25,13 @@ public class Helper {
                 .toString();
     }
 
-    public static String buildMediaUrl(String mediaUrl,int mediaType) {
-        if(mediaType == MEDIA_TYPE_AUDIO){
+    public static String buildMediaUrl(String mediaUrl, int mediaType) {
+        if (mediaType == MEDIA_TYPE_AUDIO) {
             return new StringBuilder()
                     .append(AUDIO_PATH)
                     .append(mediaUrl)
                     .toString();
-        }else{
+        } else {
             return new StringBuilder()
                     .append(VIDEO_PATH)
                     .append(mediaUrl)

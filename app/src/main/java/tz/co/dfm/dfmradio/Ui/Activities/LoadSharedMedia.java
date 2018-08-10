@@ -2,17 +2,14 @@ package tz.co.dfm.dfmradio.Ui.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,13 +41,12 @@ import static tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment.SHOW_NAME;
 
 public class LoadSharedMedia extends AppCompatActivity {
 
+    public static final String STATUS = "status";
+    public static final String CONTENTS = "contents";
     @BindView(R.id.pb_loading_link)
     ProgressBar loadingLinkProgressBar;
     @BindView(R.id.btn_view_other_episodes)
     Button btnViewOtherEpisodes;
-
-    public static final String STATUS = "status";
-    public static final String CONTENTS = "contents";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,47 +54,52 @@ public class LoadSharedMedia extends AppCompatActivity {
         setContentView(R.layout.activity_load_shared_media);
         ButterKnife.bind(this);
         Uri uri = this.getIntent().getData();
-        if(uri != null) {
+        if (uri != null) {
             new LoadSharedUrlAsyncTask().execute(uri.toString());
-        }else{
+        } else {
             loadingLinkProgressBar.setVisibility(View.GONE);
             btnViewOtherEpisodes.setVisibility(View.VISIBLE);
         }
     }
 
     @OnClick(R.id.btn_view_other_episodes)
-    void openHomeActivity(){
+    void openHomeActivity() {
         Intent intent = new Intent(LoadSharedMedia.this, MainActivity.class);
         startActivity(intent);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         finish();
     }
 
-    private Activity getActivity(){
-        return  this;
+    private Activity getActivity() {
+        return this;
+    }
+
+    public void showErrorInformation() {
+        loadingLinkProgressBar.setVisibility(View.GONE);
+        btnViewOtherEpisodes.setVisibility(View.VISIBLE);
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class LoadSharedUrlAsyncTask extends AsyncTask<String,Void,JSONObject>{
+    private class LoadSharedUrlAsyncTask extends AsyncTask<String, Void, JSONObject> {
 
         @Override
         protected JSONObject doInBackground(String... strings) {
             String url = strings[0];
             String inputLine;
             String serverResponse;
-            try{
+            try {
                 URL sharedUrl = new URL(url);
 
-                HttpURLConnection httpURLConnection = (HttpURLConnection)sharedUrl.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) sharedUrl.openConnection();
                 httpURLConnection.setRequestMethod("GET");
-                httpURLConnection.setConnectTimeout(30000);
-                httpURLConnection.setReadTimeout(30000);
+                httpURLConnection.setConnectTimeout(15000);
+                httpURLConnection.setReadTimeout(15000);
                 httpURLConnection.connect();
 
                 InputStreamReader inputStreamReader = new InputStreamReader(httpURLConnection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
                 StringBuilder stringBuilder = new StringBuilder();
-                while ((inputLine = bufferedReader.readLine()) != null){
+                while ((inputLine = bufferedReader.readLine()) != null) {
                     stringBuilder.append(inputLine);
                 }
                 bufferedReader.close();
@@ -106,11 +107,15 @@ public class LoadSharedMedia extends AppCompatActivity {
 
                 serverResponse = stringBuilder.toString();
 
-            }catch (Exception ex){
+            } catch (Exception ex) {
                 serverResponse = null;
             }
             try {
-                return new JSONObject(serverResponse);
+                if (serverResponse != null) {
+                    return new JSONObject(serverResponse);
+                } else {
+                    return null;
+                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -120,18 +125,18 @@ public class LoadSharedMedia extends AppCompatActivity {
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
             super.onPostExecute(jsonObject);
-            if(jsonObject == null){
+            if (jsonObject == null) {
                 showErrorInformation();
-            }else{
-                if(jsonObject.optString(STATUS) == null || jsonObject.optInt(STATUS) == 0){
+            } else {
+                if (jsonObject.optString(STATUS) == null || jsonObject.optInt(STATUS) == 0) {
                     showErrorInformation();
-                }else{
+                } else {
                     openDetailsActivity(jsonObject);
                 }
             }
         }
 
-        void openDetailsActivity(JSONObject jsonResults){
+        void openDetailsActivity(JSONObject jsonResults) {
             JSONObject jsonObject;
             try {
                 jsonObject = new JSONObject(jsonResults.optString(CONTENTS));
@@ -152,21 +157,15 @@ public class LoadSharedMedia extends AppCompatActivity {
                         jsonObject.optString(SHOW_HOST),
                         mediaType
                 );
-                Log.e("Shows:",shows.getEpisodeTitle());
 
                 Intent intent = new Intent(getActivity(), EpisodeDetails.class);
                 intent.putExtra(SHOW_MODEL, shows);
                 getActivity().startActivity(intent);
-                overridePendingTransition(0,0);
+                overridePendingTransition(0, 0);
                 finish();
             } catch (JSONException e) {
                 showErrorInformation();
             }
         }
-    }
-
-    public void showErrorInformation(){
-        loadingLinkProgressBar.setVisibility(View.GONE);
-        btnViewOtherEpisodes.setVisibility(View.VISIBLE);
     }
 }

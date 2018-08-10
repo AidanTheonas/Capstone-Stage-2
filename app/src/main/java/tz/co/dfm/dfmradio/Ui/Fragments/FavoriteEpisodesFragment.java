@@ -37,8 +37,9 @@ import tz.co.dfm.dfmradio.Ui.Activities.EpisodeDetails;
 import static tz.co.dfm.dfmradio.Adapters.LatestEpisodesAdapter.SHOWS_EPISODE_FRAGMENT;
 
 @SuppressWarnings("ConstantConditions")
-public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClickListener,LoaderManager.LoaderCallbacks<Cursor>,SwipeRefreshLayout.OnRefreshListener {
+public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClickListener, LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
     public static final String SHOW_MODEL = "show_model";
+    private static final int FAVORITE_EPISODES_LOADER = 105;
     @BindView(R.id.rv_episodes)
     RecyclerView recyclerViewEpisodes;
     @BindView(R.id.sl_refresh_episodes)
@@ -48,8 +49,6 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
     private List<Shows> showsList = new ArrayList<>();
     private LatestEpisodesAdapter latestEpisodesAdapter;
 
-    private static final int FAVORITE_EPISODES_LOADER = 105;
-
     public FavoriteEpisodesFragment() {
         // Required empty public constructor
     }
@@ -58,7 +57,7 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(true);
         if (isVisibleToUser & getActivity() != null) {
-            getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER,null,this);
+            getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER, null, this);
         }
     }
 
@@ -74,7 +73,7 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
         swipeRefreshEpisodes.setOnRefreshListener(this);
         swipeRefreshEpisodes.setColorSchemeColors(getResources().getColor(R.color.colorAccent), getResources().getColor(R.color.colorPrimary), getResources().getColor(R.color.colorAccent));
 
-        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList,SHOWS_EPISODE_FRAGMENT);
+        latestEpisodesAdapter = new LatestEpisodesAdapter(showsList, SHOWS_EPISODE_FRAGMENT);
         latestEpisodesAdapter.setOnEpisodeClickListener(this);
         int gridLayoutManagerSpanCount = getContext().getResources().getInteger(R.integer.shows_grid_layout_span_count);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), gridLayoutManagerSpanCount);
@@ -82,7 +81,7 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
         recyclerViewEpisodes.setItemAnimator(new DefaultItemAnimator());
         recyclerViewEpisodes.setAdapter(latestEpisodesAdapter);
 
-        getActivity().getSupportLoaderManager().initLoader(FAVORITE_EPISODES_LOADER,null,this);
+        getActivity().getSupportLoaderManager().initLoader(FAVORITE_EPISODES_LOADER, null, this);
 
         return view;
     }
@@ -122,9 +121,9 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor data) {
         swipeRefreshEpisodes.setRefreshing(false);
         showsList.clear();
-        if(data == null || data.getCount() == 0){
+        if (data == null || data.getCount() == 0) {
             btnTapToRefresh.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             btnTapToRefresh.setVisibility(View.GONE);
             updateList(data);
         }
@@ -133,12 +132,12 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
     @Override
     public void onResume() {
         super.onResume();
-        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER,null,this);
+        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER, null, this);
     }
 
-    public void updateList(Cursor cursor){
-        if (cursor.moveToFirst()){
-            do{
+    public void updateList(Cursor cursor) {
+        if (cursor.moveToFirst()) {
+            do {
                 Shows shows = new Shows(
                         cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_ID)),
                         cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_SHOW_NAME)),
@@ -151,24 +150,25 @@ public class FavoriteEpisodesFragment extends Fragment implements OnEpisodeClick
                         cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_MEDIA_TYPE))
                 );
                 showsList.add(shows);
-            }while(cursor.moveToNext());
+            } while (cursor.moveToNext());
             latestEpisodesAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<Cursor> loader) { }
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+    }
 
 
     @Override
     public void onRefresh() {
         btnTapToRefresh.setVisibility(View.GONE);
-        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER,null,this);
+        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER, null, this);
     }
 
     @OnClick(R.id.btn_tap_to_refresh)
     void refreshFavoriteEpisodes() {
         btnTapToRefresh.setVisibility(View.GONE);
-        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER,null,this);
+        getActivity().getSupportLoaderManager().restartLoader(FAVORITE_EPISODES_LOADER, null, this);
     }
 }
