@@ -35,6 +35,8 @@
         <item>English</item>
         <item>Swahili</item>
     </string-array>
+    <string name="english_lang">English</string>
+    <string name="swahili_lang">Swahili</string>
     <string name="pref_ringtone_silent">Silent</string>
     <string name="key_app_version">key_app_version</string>
     <string name="app_version">App version</string>
@@ -60,7 +62,8 @@
     <string name="watch_now">Watch now on DFM Radio Podcast</string>
     <string name="no_episodes_found">No episodes found.</string>
     <string name="which_episode_do_you_want_to_search">Which episode do you want to search?</string>
-    <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="go_to_previous_activity">Go to previous activity</string>
+    <string name="add_more_favorite_episodes">Add more favorite episodes</string>
+    <string name="dfm_favorite_episodes">Favorite episodes</string>
 </resources>

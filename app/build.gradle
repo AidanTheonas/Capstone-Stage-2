@@ -14,7 +14,7 @@ android {
 
     signingConfigs {
         release{
-            storeFile file('capstone_project.jks')
+            storeFile file('../capstone_project.jks')
             keyAlias 'capstone'
             keyPassword 'capstone@2018'
             storePassword 'capstone@2018'
@@ -49,6 +49,8 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     implementation 'com.google.android.gms:play-services-plus:15.0.1'
 
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'
+
 
     testImplementation "junit:junit:4.12"
     androidTestImplementation "com.android.support.test:runner:1.0.2"
@@ -70,3 +72,4 @@ dependencies {
     /**** ExoPlayerLibrary *****/
     implementation "com.google.android.exoplayer:exoplayer:$exoplayerVersion"
 }
+apply plugin: 'com.google.gms.google-services'

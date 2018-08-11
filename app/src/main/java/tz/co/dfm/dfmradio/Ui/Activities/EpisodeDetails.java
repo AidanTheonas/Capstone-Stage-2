@@ -52,6 +52,7 @@ import tz.co.dfm.dfmradio.Models.FavoriteEpisodesColumns;
 import tz.co.dfm.dfmradio.Models.FavoriteEpisodesProvider;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
+import tz.co.dfm.dfmradio.Widget.DFMRadioWidgetService;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.MEDIA_TYPE_AUDIO;
 import static tz.co.dfm.dfmradio.Helpers.Constants.WATCH_EPISODE_PATH;
@@ -137,6 +138,7 @@ public class EpisodeDetails extends AppCompatActivity {
             actionFavoriteButton.setTag(0);
             exoFavoriteButton.setTag(0);
         }
+        DFMRadioWidgetService.updateDFMWidget(this);
     }
 
     @Override
@@ -155,6 +157,8 @@ public class EpisodeDetails extends AppCompatActivity {
 
         Picasso.get()
                 .load(Uri.parse(mediaUrl))
+                .placeholder(R.drawable.remote_thumbnail_placeholder)
+                .error(R.drawable.remote_thumbnail_placeholder)
                 .into(ivExoPlayerThumbnail);
 
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {

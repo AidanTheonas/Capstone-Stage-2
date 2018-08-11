@@ -8,11 +8,6 @@
             android:key="@string/key_notifications"
             android:title="@string/allow_notifications" />
 
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="@string/key_vibration"
-            android:title="@string/allow_vibration" />
-
         <RingtonePreference
             android:defaultValue="content://settings/system/notification_sound"
             android:dependency="@string/key_notifications"
@@ -26,7 +21,7 @@
     <PreferenceCategory android:title="@string/pref_header_language">
 
         <ListPreference
-            android:defaultValue="1"
+            android:defaultValue="@string/english_lang"
             android:dialogTitle="@string/choose_language"
             android:entries="@array/languages_array"
             android:entryValues="@array/languages_array"
