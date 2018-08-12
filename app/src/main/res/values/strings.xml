@@ -37,7 +37,7 @@
     <string name="choose_language">Choose language</string>
     <string name="key_app_language" translatable="false">key_app_language</string>
     <string name="choose_preferred_language">Choose your preferred language</string>
-    <string-array name="languages_array">
+    <string-array translatable="false" name="languages_array">
         <item>English</item>
         <item>Swahili</item>
     </string-array>
