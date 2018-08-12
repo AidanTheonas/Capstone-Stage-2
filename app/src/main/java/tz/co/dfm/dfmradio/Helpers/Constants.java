@@ -13,7 +13,7 @@ public class Constants {
   public static final String SEARCH_EPISODE_PATH =
       "https://www.capstone-stage-2.aidantheonas.com/public/searchEpisode/";
   public static final int MEDIA_TYPE_AUDIO = 1;
-  public static final String THUMBNAILS_PATH =
+  static final String THUMBNAILS_PATH =
       "https://www.capstone-stage-2.aidantheonas.com/public/storage/thumbnails/";
   public static final String ENG_LOCALE = "en";
   public static final String SW_LOCALE = "sw";

@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">DFM Radio</string>
+    <string name="app_name" translatable="false">DFM Radio</string>
     <string name="by_string">by</string>
     <string name="item_search">Search</string>
     <string name="item_settings">Settings</string>
     <string name="item_about_us">About us</string>
     <string name="search_episodes">Search episode…</string>
-    <string name="deep_fm_radio_podcast_logo">Deep FM Radio Podcast Logo</string>
-    <string name="eepfm_radio">eepFM Radio</string>
+    <string name="deep_fm_radio_podcast_logo" translatable="false">Deep FM Radio Podcast Logo</string>
+    <string name="eepfm_radio" translatable="false">eepFM Radio</string>
     <string name="play_video">Play video</string>
     <string name="pause_video">Pause video</string>
     <string name="episode_thumbnail">Episode thumbnail</string>
-    <string name="episode_to_player_transition">Episode to player transition</string>
+    <string name="episode_to_player_transition" translatable="false">Episode to player transition</string>
     <string name="return_to_main_screen">Return to Main Screen</string>
     <string name="toggle_full_screen_on_off">Toggle full screen on/off</string>
     <string name="share_media">Share media</string>
@@ -28,26 +28,26 @@
     <string name="pref_header_language">Language</string>
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_header_about">About</string>
-    <string name="key_notifications">key_notifications</string>
+    <string name="key_notifications" translatable="false">key_notifications</string>
     <string name="allow_notifications">Allow notifications</string>
-    <string name="key_notification_sound">key_notification_sound</string>
+    <string name="key_notification_sound" translatable="false">key_notification_sound</string>
     <string name="choose_notification_alert_sound">Choose notification alert sound</string>
     <string name="notification_sound">Notification sound</string>
-    <string name="key_vibration">key_vibration</string>
+    <string name="key_vibration" translatable="false">key_vibration</string>
     <string name="choose_language">Choose language</string>
-    <string name="key_app_language">key_app_language</string>
+    <string name="key_app_language" translatable="false">key_app_language</string>
     <string name="choose_preferred_language">Choose your preferred language</string>
     <string-array name="languages_array">
         <item>English</item>
         <item>Swahili</item>
     </string-array>
-    <string name="english_lang">English</string>
-    <string name="swahili_lang">Swahili</string>
-    <string name="pref_ringtone_silent">Silent</string>
-    <string name="key_app_version">key_app_version</string>
+    <string name="english_lang" translatable="false">English</string>
+    <string name="swahili_lang" translatable="false">Swahili</string>
+    <string name="pref_ringtone_silent" translatable="false">Silent</string>
+    <string name="key_app_version" translatable="false">key_app_version</string>
     <string name="app_version">App version</string>
-    <string name="key_about">key_about</string>
-    <string name="deep_fm_radio">Deep FM Radio</string>
+    <string name="key_about" translatable="false">key_about</string>
+    <string name="deep_fm_radio" translatable="false">Deep FM Radio</string>
     <string name="about_dfm_radio">About DFM Radio</string>
     <!-- End Strings related to Settings -->
 
