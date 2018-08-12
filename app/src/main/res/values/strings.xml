@@ -17,6 +17,13 @@
     <string name="add_to_favorites">Add to favorites</string>
     <string name="share_episode">Share episode</string>
 
+    <string name="favorite_shows">Favorites</string>
+    <string name="all_shows">All</string>
+    <string name="d_youth_show">D-Youth</string>
+    <string name="d_hits_show">D-Hits</string>
+    <string name="d_testify_show">D-Testify</string>
+    <string name="d_love_show">D-Love</string>
+
     <!-- Strings related to Settings -->
     <string name="pref_header_language">Language</string>
     <string name="pref_header_notifications">Notifications</string>
@@ -27,7 +34,6 @@
     <string name="choose_notification_alert_sound">Choose notification alert sound</string>
     <string name="notification_sound">Notification sound</string>
     <string name="key_vibration">key_vibration</string>
-    <string name="allow_vibration">Allow vibration</string>
     <string name="choose_language">Choose language</string>
     <string name="key_app_language">key_app_language</string>
     <string name="choose_preferred_language">Choose your preferred language</string>

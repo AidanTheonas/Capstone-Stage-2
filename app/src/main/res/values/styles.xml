@@ -111,7 +111,9 @@
         <item name="queryBackground">@color/colorTransparent</item>
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:paddingLeft">@dimen/sv_search_episodes_padding_start</item>
-        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/sv_search_episodes_padding_start</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/sv_search_episodes_padding_start
+        </item>
     </style>
 
     <style name="search_toolbar_style" parent="main_toolbar_style">

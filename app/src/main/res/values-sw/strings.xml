@@ -1,0 +1,57 @@
+<resources>
+    <string name="by_string">na</string>
+    <string name="item_search">Tafuta</string>
+    <string name="item_settings">Mipangilio</string>
+    <string name="item_about_us">Kuhusu sisi</string>
+    <string name="search_episodes">Tafuta sehemu…</string>
+    <string name="play_video">Cheza video</string>
+    <string name="pause_video">Simamisha video</string>
+    <string name="episode_thumbnail">Picha ya sehemu</string>
+    <string name="return_to_main_screen">Rudi skrini kuu</string>
+    <string name="toggle_full_screen_on_off">Zima/Washa skrini kamili</string>
+    <string name="share_media">Shirikisha</string>
+    <string name="add_to_favorites">Mapendeleo</string>
+    <string name="share_episode">Shirikisha sehemu</string>
+
+    <string name="favorite_shows">Mapendeleo</string>
+    <string name="all_shows">Zote</string>
+    <string name="d_youth_show">D-Vijana</string>
+    <string name="d_hits_show">D-Zinavuma</string>
+    <string name="d_testify_show">D-Ushuhuda</string>
+    <string name="d_love_show">D-Upendo</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_language">Lugha</string>
+    <string name="pref_header_notifications">Arifa</string>
+    <string name="pref_header_about">Kuhusu</string>
+    <string name="allow_notifications">Ruhusu arifa</string>
+    <string name="choose_notification_alert_sound">Changua sauti ya arifa</string>
+    <string name="notification_sound">Sauti ya arifa</string>
+    <string name="choose_language">Chagua lugha</string>
+    <string name="choose_preferred_language">Chagua lugha unayopendelea</string>
+    <string name="app_version">Toleo la programu</string>
+    <string name="about_dfm_radio">Kuhusu DFM Radio</string>
+    <!-- End Strings related to Settings -->
+
+    <string name="network_error_message">Tatizo la mtandao! Rekebisha mtandao kisha bonyeza jaribu tena.</string>
+    <string name="no_episodes_found_tap_to_refresh">Hakuna matoleo, gusa kutafuta upya.</string>
+    <string name="no_favorite_episodes_added">Hakuna mapendendeleo, gusa kutafuta upya.</string>
+    <string name="episode_removed">Sehemu imeondolewa kwenye mapendeleo</string>
+    <string name="error_removing_episode">Tatizo kuondoa sehemu kwenye mapendeleo</string>
+    <string name="error_adding_episode_to_favorites">Tatizo kuongeza sehemu kwenye mapendeleo</string>
+    <string name="episode_added_to_favorites">Sehemu imeongezwa kwenye mapendeleo</string>
+    <string name="remove_from_favorites">Ondoa kwenye mapendeleo</string>
+    <string name="error_sharing_episode">Tatizo kushirikisha sehemu</string>
+    <string name="allow_storage_permission"><![CDATA[Kushirikisha matoleo unahitaji kuruhusu upatikanaji wa mfumo wa uhifadhi. Bonyeza mipangilio => permissions => washa storage permission.]]></string>
+    <string name="app_settings">Mipangilio</string>
+    <string name="retry_load">Jaribu tena</string>
+    <string name="the_episode_appears_to_be_missing_tap_to_view_other_episodes">Toleo halipatikani kwenye mfumo, gusa kuangalia matoleo mengine.</string>
+    <string name="listen_now">Sikiliza sasa kwenye DFM Radio Podcast</string>
+    <string name="watch_now">Angalia sasa kwenye DFM Radio Podcast</string>
+    <string name="no_episodes_found">Hakuna matoleo yaliyopatikana.</string>
+    <string name="which_episode_do_you_want_to_search">Toleo lipi unataka kutafuta?</string>
+    <string name="add_widget">Add widget</string>
+    <string name="go_to_previous_activity">Nenda kwenye skrini iliyopita</string>
+    <string name="add_more_favorite_episodes">Ongeza mapendeleo zaidi</string>
+    <string name="dfm_favorite_episodes">Matoleo unayopendelea</string>
+</resources>

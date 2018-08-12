@@ -20,60 +20,78 @@ import tz.co.dfm.dfmradio.Ui.Fragments.ShowEpisodesFragment;
 
 import static tz.co.dfm.dfmradio.Helpers.Constants.ALL_SHOWS;
 import static tz.co.dfm.dfmradio.Helpers.Constants.shows;
+import static tz.co.dfm.dfmradio.Ui.Activities.SettingsActivity.LANGUAGE_CHANGED;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.main_toolbar)
-    Toolbar mainToolbar;
-    @BindView(R.id.vp_episodes)
-    ViewPager showsViewPager;
-    @BindView(R.id.tab_shows)
-    TabLayout showsTab;
+  public static final int MAIN_ACTIVITY_REQUEST_CODE = 111;
+  @BindView(R.id.main_toolbar)
+  Toolbar mainToolbar;
+  @BindView(R.id.vp_episodes)
+  ViewPager showsViewPager;
+  @BindView(R.id.tab_shows)
+  TabLayout showsTab;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(mainToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
-        showsTab.setupWithViewPager(showsViewPager);
-        setupViewPager();
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    ButterKnife.bind(this);
+    setSupportActionBar(mainToolbar);
+    if (getSupportActionBar() != null) {
+      getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
+    showsTab.setupWithViewPager(showsViewPager);
+    setupViewPager();
+  }
 
-    private void setupViewPager() {
-        LatestShowsViewPagerAdapter adapter = new LatestShowsViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(ShowEpisodesFragment.newInstance(ALL_SHOWS), ALL_SHOWS);
-        adapter.addFragment(new FavoriteEpisodesFragment(), Constants.FAVORITE_SHOWS);
-        for (String show : shows) {
-            adapter.addFragment(ShowEpisodesFragment.newInstance(show), show);
-        }
-        showsViewPager.setAdapter(adapter);
+  private void setupViewPager() {
+    LatestShowsViewPagerAdapter adapter =
+        new LatestShowsViewPagerAdapter(getSupportFragmentManager());
+    adapter.addFragment(
+        ShowEpisodesFragment.newInstance(ALL_SHOWS), getResources().getString(ALL_SHOWS));
+    adapter.addFragment(
+        new FavoriteEpisodesFragment(), getResources().getString(Constants.FAVORITE_SHOWS));
+    for (int show : shows) {
+      adapter.addFragment(ShowEpisodesFragment.newInstance(show), getResources().getString(show));
     }
+    showsViewPager.setAdapter(adapter);
+  }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int itemId = item.getItemId();
+    switch (itemId) {
+      case R.id.item_search:
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        startActivity(searchIntent);
+        overridePendingTransition(0, 0);
         return true;
+      case R.id.item_settings:
+        Intent settingsIntent = new Intent(this, SettingsActivity.class);
+        startActivityForResult(settingsIntent, MAIN_ACTIVITY_REQUEST_CODE);
+        overridePendingTransition(0, 0);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
     }
+  }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        switch (itemId) {
-            case R.id.item_search:
-                Intent searchIntent = new Intent(this, SearchActivity.class);
-                startActivity(searchIntent);
-                overridePendingTransition(0, 0);
-                return true;
-            case R.id.item_settings:
-                Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivity(settingsIntent);
-                overridePendingTransition(0, 0);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == MAIN_ACTIVITY_REQUEST_CODE) {
+      if (resultCode == RESULT_OK) {
+        boolean languageChanged = data.getBooleanExtra(LANGUAGE_CHANGED, false);
+        if (languageChanged) {
+          recreate();
         }
+      }
     }
+  }
 }
