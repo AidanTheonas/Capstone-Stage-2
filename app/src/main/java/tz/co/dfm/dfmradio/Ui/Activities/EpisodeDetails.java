@@ -49,7 +49,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tz.co.dfm.dfmradio.Helpers.Helper;
-import tz.co.dfm.dfmradio.Models.FavoriteEpisodesColumns;
+import tz.co.dfm.dfmradio.Models.FavoriteEpisodesContract;
 import tz.co.dfm.dfmradio.Models.FavoriteEpisodesProvider;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
@@ -64,6 +64,7 @@ public class EpisodeDetails extends AppCompatActivity {
   public static final String PLAYER_USER_AGENT = "episodeVideo";
   private static final String PLAYER_POSITION = "playerPosition";
   private static final String PLAYER_STATE = "playerState";
+  private static final String ANALYTICS_ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
   private static final int STORAGE_ACCESS_REQUEST_CODE = 10;
   private static long currentPlayerPosition = -1;
   boolean isPlayWhenReady = true;
@@ -427,18 +428,18 @@ public class EpisodeDetails extends AppCompatActivity {
   public void addToFavorites() {
     final Uri[] returnedURI = new Uri[1];
     ContentValues values = new ContentValues();
-    values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_ID, shows.getEpisodeId());
-    values.put(FavoriteEpisodesColumns.COLUMN_SHOW_NAME, shows.getShowName());
-    values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_TITLE, shows.getEpisodeTitle());
-    values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_DATE, shows.getEpisodeDate());
-    values.put(FavoriteEpisodesColumns.COLUMN_EPISODE_DESCRIPTION, shows.getEpisodeDescription());
-    values.put(FavoriteEpisodesColumns.COLUMN_THUMBNAIL_FILE, shows.getEpisodeThumbnail());
-    values.put(FavoriteEpisodesColumns.COLUMN_MEDIA_FILE, shows.getEpisodeMediaFile());
-    values.put(FavoriteEpisodesColumns.COLUMN_SHOW_HOST, shows.getEpisodeHostName());
-    values.put(FavoriteEpisodesColumns.COLUMN_MEDIA_TYPE, shows.getMediaType());
-    values.put(FavoriteEpisodesColumns.COLUMN_TIMESTAMP, Helper.getCurrentTimeAsInteger());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_ID, shows.getEpisodeId());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_NAME, shows.getShowName());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_TITLE, shows.getEpisodeTitle());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DATE, shows.getEpisodeDate());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DESCRIPTION, shows.getEpisodeDescription());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_THUMBNAIL_FILE, shows.getEpisodeThumbnail());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_FILE, shows.getEpisodeMediaFile());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_HOST, shows.getEpisodeHostName());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_TYPE, shows.getMediaType());
+    values.put(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_TIMESTAMP, Helper.getCurrentTimeAsInteger());
     returnedURI[0] =
-        getContentResolver().insert(FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI, values);
+        getContentResolver().insert(FavoriteEpisodesProvider.CONTENT_URI, values);
     if (returnedURI[0] == null) {
       Toast.makeText(this, R.string.error_adding_episode_to_favorites, Toast.LENGTH_LONG).show();
     } else {
@@ -446,7 +447,7 @@ public class EpisodeDetails extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putInt(FirebaseAnalytics.Param.ITEM_ID, shows.getEpisodeId());
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getResources().getString(R.string.add_to_favorites)+shows.getEpisodeTitle());
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        firebaseAnalytics.logEvent(ANALYTICS_ADD_TO_FAVORITES, bundle);
       updateFavoriteButtons();
     }
   }
@@ -455,8 +456,8 @@ public class EpisodeDetails extends AppCompatActivity {
     int data =
         getContentResolver()
             .delete(
-                FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI,
-                FavoriteEpisodesColumns.COLUMN_EPISODE_ID + " =?",
+                FavoriteEpisodesProvider.CONTENT_URI,
+                FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_ID + " =?",
                 new String[] {shows.getEpisodeId() + ""});
     if (data > 0) {
       Toast.makeText(this, R.string.episode_removed, Toast.LENGTH_LONG).show();
@@ -471,9 +472,9 @@ public class EpisodeDetails extends AppCompatActivity {
     Cursor cursor =
         getContentResolver()
             .query(
-                FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI,
+                FavoriteEpisodesProvider.CONTENT_URI,
                 null,
-                FavoriteEpisodesColumns.COLUMN_EPISODE_ID + " =?",
+                FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_ID + " =?",
                 new String[] {shows.getEpisodeId() + ""},
                 null);
     if (cursor != null) {

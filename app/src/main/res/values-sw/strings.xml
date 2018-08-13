@@ -55,4 +55,7 @@
     <string name="add_more_favorite_episodes">Ongeza mapendeleo zaidi</string>
     <string name="dfm_favorite_episodes">Matoleo unayopendelea</string>
     <string name="add_favorite_episodes">Ongeza matoleo unayopendelea</string>
+    <string name="unsupported_uri">Unsupported URI:</string>
+    <string name="failed_to_add_record">Failed to add record</string>
+    <string name="unknown_uri">Unknown URI</string>
 </resources>

@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 
-import tz.co.dfm.dfmradio.Models.FavoriteEpisodesColumns;
+import tz.co.dfm.dfmradio.Models.FavoriteEpisodesContract;
 import tz.co.dfm.dfmradio.Models.FavoriteEpisodesProvider;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
@@ -29,25 +30,46 @@ public class DFMRemoteView extends RemoteViewsService {
   class WidgetRemoteView implements RemoteViewsService.RemoteViewsFactory {
     private Cursor cursor;
     private Context context;
+    private FirebaseAnalytics firebaseAnalytics;
+    static final String APP_WIDGET_CONTENT_PROVIDER_READING_ERROR = "APP_WIDGET_ERROR";
+    static final int APP_WIDGET_ERROR_ID = 107;
 
     WidgetRemoteView(Context context) {
       this.context = context;
     }
 
     @Override
-    public void onCreate() {}
+    public void onCreate() {
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
+        firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+        firebaseAnalytics.setMinimumSessionDuration(20000);
+        firebaseAnalytics.setSessionTimeoutDuration(600000);
+    }
 
     @Override
     public void onDataSetChanged() {
       if (cursor != null) cursor.close();
-      cursor =
-          getContentResolver()
-              .query(
-                  FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI,
-                  null,
-                  null,
-                  null,
-                  FavoriteEpisodesColumns.COLUMN_TIMESTAMP);
+      try {
+          Thread thread = new Thread() {
+              public void run() {
+                  cursor =
+                          getContentResolver()
+                                  .query(
+                                          FavoriteEpisodesProvider.CONTENT_URI,
+                                          null,
+                                          null,
+                                          null,
+                                          FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_TIMESTAMP);
+              }
+          };
+          thread.start();
+        thread.join();
+      } catch (InterruptedException e) {
+          Bundle bundle = new Bundle();
+          bundle.putInt(FirebaseAnalytics.Param.ITEM_ID, APP_WIDGET_ERROR_ID);
+          bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, e.getMessage());
+          firebaseAnalytics.logEvent(APP_WIDGET_CONTENT_PROVIDER_READING_ERROR, bundle);
+      }
     }
 
     @Override
@@ -71,17 +93,17 @@ public class DFMRemoteView extends RemoteViewsService {
       cursor.moveToPosition(position);
       Shows shows =
           new Shows(
-              cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_ID)),
-              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_SHOW_NAME)),
-              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_TITLE)),
-              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_DATE)),
+              cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_ID)),
+              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_NAME)),
+              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_TITLE)),
+              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DATE)),
               cursor.getString(
-                  cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_DESCRIPTION)),
+                  cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DESCRIPTION)),
               cursor.getString(
-                  cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_THUMBNAIL_FILE)),
-              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_MEDIA_FILE)),
-              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_SHOW_HOST)),
-              cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_MEDIA_TYPE)));
+                  cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_THUMBNAIL_FILE)),
+              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_FILE)),
+              cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_HOST)),
+              cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_TYPE)));
 
       RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.dfmradio_widget);
       remoteViews.setTextViewText(R.id.tv_widget_episode_title, shows.getEpisodeTitle());

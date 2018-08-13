@@ -99,15 +99,16 @@
         </activity>
 
         <provider
-            android:name=".Models.generated.FavoriteEpisodesProvider"
+            android:name=".Models.FavoriteEpisodesProvider"
             android:authorities="tz.co.dfm.dfmradio.content.android.provider"
-            android:exported="true"
+            android:exported="false"
             tools:ignore="ExportedContentProvider,InnerclassSeparator" />
+
         <provider
             android:name=".Models.SearchSuggestionsProvider"
             android:authorities="tz.co.dfm.dfmradio.content.android.searchSuggestionsProvider"
             android:exported="false"
-            tools:ignore="InnerclassSeparator" />
+            tools:ignore="ExportedContentProvider,InnerclassSeparator" />
 
         <receiver
             android:name=".Widget.DFMRadioWidget"
@@ -133,7 +134,7 @@
 
         <service
             android:name=".FirebaseCloudMessaging.DFMPodcastMessagingService"
-            tools:ignore="InnerclassSeparator">
+            tools:ignore="ExportedService,InnerclassSeparator">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

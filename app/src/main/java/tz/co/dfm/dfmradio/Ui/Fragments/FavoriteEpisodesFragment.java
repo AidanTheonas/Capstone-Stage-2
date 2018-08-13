@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import tz.co.dfm.dfmradio.Adapters.LatestEpisodesAdapter;
 import tz.co.dfm.dfmradio.Adapters.OnEpisodeClickListener;
-import tz.co.dfm.dfmradio.Models.FavoriteEpisodesColumns;
+import tz.co.dfm.dfmradio.Models.FavoriteEpisodesContract;
 import tz.co.dfm.dfmradio.Models.FavoriteEpisodesProvider;
 import tz.co.dfm.dfmradio.Models.Shows;
 import tz.co.dfm.dfmradio.R;
@@ -119,7 +119,7 @@ public class FavoriteEpisodesFragment extends Fragment
   @Override
   public Loader<Cursor> onCreateLoader(int id, Bundle args) {
     swipeRefreshEpisodes.setRefreshing(true);
-    Uri FAVORITE_EPISODES_URI = FavoriteEpisodesProvider.FavoriteEpisodes.CONTENT_URI;
+    Uri FAVORITE_EPISODES_URI = FavoriteEpisodesProvider.CONTENT_URI;
     return new CursorLoader(getActivity(), FAVORITE_EPISODES_URI, null, null, null, null);
   }
 
@@ -146,19 +146,19 @@ public class FavoriteEpisodesFragment extends Fragment
       do {
         Shows shows =
             new Shows(
-                cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_ID)),
-                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_SHOW_NAME)),
+                cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_ID)),
+                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_NAME)),
                 cursor.getString(
-                    cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_TITLE)),
+                    cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_TITLE)),
                 cursor.getString(
-                    cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_DATE)),
+                    cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DATE)),
                 cursor.getString(
-                    cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_EPISODE_DESCRIPTION)),
+                    cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_EPISODE_DESCRIPTION)),
                 cursor.getString(
-                    cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_THUMBNAIL_FILE)),
-                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_MEDIA_FILE)),
-                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_SHOW_HOST)),
-                cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesColumns.COLUMN_MEDIA_TYPE)));
+                    cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_THUMBNAIL_FILE)),
+                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_FILE)),
+                cursor.getString(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_SHOW_HOST)),
+                cursor.getInt(cursor.getColumnIndex(FavoriteEpisodesContract.FavoriteEpisodesEntry.COLUMN_MEDIA_TYPE)));
         showsList.add(shows);
       } while (cursor.moveToNext());
       latestEpisodesAdapter.notifyDataSetChanged();

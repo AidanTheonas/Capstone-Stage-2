@@ -56,9 +56,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     /***** Picasso Photo Library *****/
     implementation 'com.squareup.picasso:picasso:2.71828'
-    /***** Schematic Content provider Library *****/
-    annotationProcessor 'net.simonvt.schematic:schematic-compiler:0.6.3'
-    implementation 'net.simonvt.schematic:schematic:0.6.3'
     /***** Volley HTTP Library *****/
     implementation 'com.android.volley:volley:1.1.1'
     /**** ExoPlayerLibrary *****/
