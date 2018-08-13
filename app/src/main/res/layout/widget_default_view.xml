@@ -15,4 +15,14 @@
         android:id="@+id/gv_widget_favorite_episodes"
         style="@style/widget_grid_view_style" />
 
+    <TextView
+        android:id="@+id/tv_no_favorite_episodes"
+        android:layout_centerInParent="true"
+        android:text="@string/add_favorite_episodes"
+        android:drawableTop="@drawable/ic_plus"
+        android:drawablePadding="16dp"
+        android:textAlignment="gravity"
+        android:gravity="center"
+        style="@style/tv_episode_title_style" />
+
 </RelativeLayout>

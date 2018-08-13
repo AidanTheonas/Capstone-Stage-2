@@ -39,6 +39,7 @@ import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -66,6 +67,8 @@ public class EpisodeDetails extends AppCompatActivity {
   private static final int STORAGE_ACCESS_REQUEST_CODE = 10;
   private static long currentPlayerPosition = -1;
   boolean isPlayWhenReady = true;
+
+  private FirebaseAnalytics firebaseAnalytics;
 
   @BindView(R.id.pv_episode)
   PlayerView pvEpisode;
@@ -109,6 +112,11 @@ public class EpisodeDetails extends AppCompatActivity {
     setContentView(R.layout.activity_episode_details);
     ButterKnife.bind(this);
     pvEpisode.setResizeMode(AspectRatioFrameLayout.RESIZE_MODE_FILL);
+
+    firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+    firebaseAnalytics.setAnalyticsCollectionEnabled(true);
+    firebaseAnalytics.setMinimumSessionDuration(20000);
+    firebaseAnalytics.setSessionTimeoutDuration(600000);
 
     if (savedInstanceState != null) {
       currentPlayerPosition = savedInstanceState.getLong(PLAYER_POSITION);
@@ -304,6 +312,12 @@ public class EpisodeDetails extends AppCompatActivity {
 
   @SuppressLint("DefaultLocale")
   public void performShare() {
+
+      Bundle bundle = new Bundle();
+      bundle.putInt(FirebaseAnalytics.Param.ITEM_ID, shows.getEpisodeId());
+      bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, shows.getEpisodeTitle());
+      firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SHARE, bundle);
+
     ivExoPlayerThumbnail.setDrawingCacheEnabled(true);
     BitmapDrawable bitmapDrawable = (BitmapDrawable) ivExoPlayerThumbnail.getDrawable();
     Bitmap episodeThumbnailBitmap = bitmapDrawable.getBitmap();
@@ -429,6 +443,10 @@ public class EpisodeDetails extends AppCompatActivity {
       Toast.makeText(this, R.string.error_adding_episode_to_favorites, Toast.LENGTH_LONG).show();
     } else {
       Toast.makeText(this, R.string.episode_added_to_favorites, Toast.LENGTH_LONG).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt(FirebaseAnalytics.Param.ITEM_ID, shows.getEpisodeId());
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, getResources().getString(R.string.add_to_favorites)+shows.getEpisodeTitle());
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
       updateFavoriteButtons();
     }
   }

@@ -35,7 +35,9 @@ public class DFMRadioWidget extends AppWidgetProvider {
     PendingIntent addEpisodesPendingIntent =
         PendingIntent.getActivity(context, 0, addEpisodesIntent, PendingIntent.FLAG_UPDATE_CURRENT);
     remoteViews.setOnClickPendingIntent(R.id.iv_add_more_episodes, addEpisodesPendingIntent);
+    remoteViews.setOnClickPendingIntent(R.id.tv_no_favorite_episodes, addEpisodesPendingIntent);
 
+    remoteViews.setEmptyView(R.id.gv_widget_favorite_episodes,R.id.tv_no_favorite_episodes);
     return remoteViews;
   }
 
